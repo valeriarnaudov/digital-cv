@@ -1,6 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import { UserAuth } from "../context/AuthContext";
+import { H1, Nav, SignOutBtn } from "../styles/NavBarEelements";
 
 function NavBar() {
     const { user, logOut } = UserAuth();
@@ -9,19 +10,17 @@ function NavBar() {
         try {
             await logOut();
         } catch (error) {
-            console.log(error);
+            toast.error("Error signing out");
         }
     };
 
     return (
-        <div>
-            <h1>Digital CV</h1>
-            {user?.displayName ? (
-                <button onClick={handleSignOut}>Sign Out</button>
-            ) : (
-                <Link to={"/signin"}> Sign In </Link>
-            )}
-        </div>
+        <>
+            <Nav>
+                <H1>{user?.displayName} Digital CV</H1>
+                {user?.displayName && <SignOutBtn onClick={handleSignOut}>Sign Out</SignOutBtn>}
+            </Nav>
+        </>
     );
 }
 
