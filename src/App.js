@@ -1,7 +1,6 @@
 import "./App.css";
 import NavBar from "./components/NavBar";
 import { Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
 import SignIn from "./pages/SignIn";
 import { AuthContextProvider } from "./context/AuthContext";
 import Account from "./pages/Account";
@@ -12,23 +11,23 @@ import "react-toastify/dist/ReactToastify.css";
 function App() {
     return (
         <div className="App">
-            <AuthContextProvider
-                position="top-center"
-                autoClose={3000}
-                hideProgressBar={false}
-                newestOnTop
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-            >
+            <AuthContextProvider>
                 <NavBar />
-                <ToastContainer />
+                <ToastContainer
+                    position="top-center"
+                    autoClose={3000}
+                    hideProgressBar={false}
+                    newestOnTop
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                />
                 <Routes>
                     <Route path={"/"} element={<SignIn />} />
                     <Route
-                        path={"/account"}
+                        path={"/account/:uid"}
                         element={
                             <Protected>
                                 <Account />
