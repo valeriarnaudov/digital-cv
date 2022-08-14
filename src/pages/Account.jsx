@@ -1,10 +1,16 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Loading from "../components/Loading";
 import PersonalDataForm from "../components/PersonalDataForm";
 import { UserAuth } from "../context/AuthContext";
 import { getData } from "../services/dataServices";
+import {
+    DataContainer,
+    Info,
+    MainContainer,
+    PersonalInfoContainer,
+} from "../styles/AccountElements";
 
 function Account() {
     const [isOwner, setIsOwner] = useState(false);
@@ -15,13 +21,11 @@ function Account() {
     const { uid } = useParams();
     const { user } = UserAuth();
 
-    const navigate = useNavigate();
-
     useEffect(() => {
         const getUserData = async () => {
             await getData(uid, setData);
             setLoading(false);
-        }
+        };
 
         getUserData();
     }, [user, uid]);
@@ -42,16 +46,19 @@ function Account() {
     }
 
     if (loading) {
-        return <Loading />
+        return <Loading />;
     }
-
-    console.log(data)
-
 
     return (
         <>
-            <h1>Hello</h1>
-            <h1>{data.user}</h1>
+            <MainContainer>
+                <PersonalInfoContainer ><p>data</p><p>data</p></PersonalInfoContainer>
+                <DataContainer>
+                    <Info>Title</Info>
+                    <Info><p>Title</p><div><button>Add</button><button>Toogle</button></div></Info>
+                    <Info>Title</Info>
+                </DataContainer>
+            </MainContainer>
         </>
     );
 }
