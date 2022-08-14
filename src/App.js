@@ -7,6 +7,7 @@ import Account from "./pages/Account";
 import Protected from "./components/Protected";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import CreateAccount from "./pages/CreateAccount";
 
 function App() {
     return (
@@ -26,11 +27,12 @@ function App() {
                 />
                 <Routes>
                     <Route path={"/"} element={<SignIn />} />
+                    <Route path={"/account/:uid"} element={<Account />} />
                     <Route
-                        path={"/account/:uid"}
+                        path={"account/:uid/create"}
                         element={
                             <Protected>
-                                <Account />
+                                <CreateAccount />
                             </Protected>
                         }
                     />

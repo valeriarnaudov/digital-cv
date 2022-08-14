@@ -19,7 +19,7 @@ export const SignInContainer = styled.div`
     top: 0;
     left: 0;
     right: 0;
-    box-sizing: border-box;
+
     @media (max-width: 768px) {
         padding: 0;
     }

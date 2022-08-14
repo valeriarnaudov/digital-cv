@@ -22,15 +22,13 @@ export const Nav = styled.nav`
     @media (max-width: 768px) {
         padding: 0;
     }
-
-`
+`;
 
 export const H1 = styled.h1`
     font-size: 1.5rem;
     font-weight: bold;
     color: ${MAIN_BLUE};
-
-`
+`;
 
 export const SignBtn = styled(Link)`
     background-color: ${MAIN_BLUE};
@@ -40,29 +38,32 @@ export const SignBtn = styled(Link)`
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
-    text-decoration: none;  
+    text-decoration: none;
     padding: 5px;
+    transition: 0.5s ease-in-out;
 
     &:hover {
         background-color: #fff;
         color: ${MAIN_BLUE};
+        border: 3px solid ${MAIN_BLUE};
     }
-
-`
+`;
 export const SignOutBtn = styled.button`
     background-color: ${MAIN_BLUE};
     color: #fff;
-    border: none;
+    border: 3px solid ${MAIN_BLUE};
     border-radius: 5px;
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
-    text-decoration: none;  
+    text-decoration: none;
     padding: 5px;
+    transition: 0.5s ease-in-out;
 
     &:hover {
         background-color: #fff;
         color: ${MAIN_BLUE};
+        border: 3px solid ${MAIN_BLUE};
+        transition: 0.5s ease-in-out;
     }
-
-`
+`;
