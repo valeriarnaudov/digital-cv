@@ -2,7 +2,7 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { toast } from "react-toastify";
 import { storage } from "../firebase";
 
-export const uploadFile = (file, setData) => {
+export const uploadFile = (file, setInputs) => {
     const fileName = new Date().getTime() + file.name;
     const storageRef = ref(storage, fileName);
 
@@ -29,7 +29,7 @@ export const uploadFile = (file, setData) => {
         () => {
             toast.success("Upload completed!");
             getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-                setData((prev) => ({ ...prev, photoURL: url }));
+                setInputs((prev) => ({ ...prev, photoURL: url }));
             });
         }
     );

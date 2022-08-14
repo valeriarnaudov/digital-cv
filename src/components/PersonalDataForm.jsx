@@ -16,24 +16,29 @@ import { createAccoutCollection } from "../services/startCvService";
 
 function PersonalDataForm({ setData, user, data }) {
     const [file, setFile] = useState("");
+    const [inputs, setInputs] = useState(null);
 
     useEffect(() => {
-        file && uploadFile(file, setData);
+        file && uploadFile(file, setInputs);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [file]);
 
     const handleInput = (e) => {
         const id = e.target.id;
         const value = e.target.value;
-        setData({ ...data, [id]: value });
+        setInputs({ ...inputs, [id]: value });
     };
 
     const saveAccount = async (e) => {
         e.preventDefault();
-        setData({ ...data, user: user.uid });
-        await createAccoutCollection(data, user.uid);
-    }
-
+        const newData = {
+            ...inputs,
+            user: user.uid,
+            photoURL: inputs?.photoURL || user?.photoURL,
+        };
+        setData(newData);
+        await createAccoutCollection(newData, user.uid);
+    };
 
     return (
         <>
@@ -42,7 +47,7 @@ function PersonalDataForm({ setData, user, data }) {
                 <ProfileImg
                     src={
                         data?.protoURL ||
-                        file ||
+                        inputs?.protoURL ||
                         user?.photoURL ||
                         "https://icon-library.com/images/default-profile-icon/default-profile-icon-24.jpg"
                     }
@@ -62,24 +67,13 @@ function PersonalDataForm({ setData, user, data }) {
                             <FormInput
                                 id={el.id}
                                 type={el.type}
-                                placeholder={el.label}
+                                placeholder={user[el.id] || el.placeholder}
                                 onChange={handleInput}
                                 required={el.required}
-                                value={
-                                    data
-                                        ? data[el.id]
-                                        : user
-                                        ? user[el.id]
-                                        : el.value
-                                }
                             />
                         </InputContainer>
                     ))}
-                    <FormButton
-                            type="submit"
-                        >
-                            Save
-                        </FormButton>
+                    <FormButton type="submit">Save</FormButton>
                 </Form>
             </FormContainer>
         </>
