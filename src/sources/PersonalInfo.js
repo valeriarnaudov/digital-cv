@@ -1,4 +1,4 @@
-export const PersonalInfo = [
+export const PersonalInfoForm = [
     {
         id: "displayName",
         label: "*Display Name",
@@ -82,5 +82,49 @@ export const PersonalInfo = [
         type: "text",
         placeholder: "Enter your nationality",
         value: "",
+    },
+];
+
+export const PersonalInfoData = [
+
+    {
+        id: "firstName",
+        text: "First Name:",
+    },
+    {
+        id: "secondName",
+        text: "Second Name:",
+    },
+    {
+        id: "lastName",
+        text: "Last Name:",
+    },
+    {
+        id: "email",
+        text: "Email:",
+    },
+    {
+        id: "phoneNumber",
+        text: "Phone Number:",
+    },
+    {
+        id: "address",
+        text: "Address:",
+    },
+    {
+        id: "city",
+        text: "City:",
+    },
+    {
+        id: "country",
+        text: "Country:",
+    },
+    {
+        id: "birthday",
+        text: "Birthday:",
+    },
+    {
+        id: "nationality",
+        text: "Nationality:",
     },
 ];

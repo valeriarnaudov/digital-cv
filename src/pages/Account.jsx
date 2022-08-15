@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Loading from "../components/Loading";
+import PersonalInfo from "../components/MainComponents/PersonalInfo";
 import PersonalDataForm from "../components/PersonalDataForm";
 import { UserAuth } from "../context/AuthContext";
 import { getData } from "../services/dataServices";
@@ -9,7 +10,6 @@ import {
     DataContainer,
     Info,
     MainContainer,
-    PersonalInfoContainer,
 } from "../styles/AccountElements";
 
 function Account() {
@@ -52,10 +52,16 @@ function Account() {
     return (
         <>
             <MainContainer>
-                <PersonalInfoContainer ><p>data</p><p>data</p></PersonalInfoContainer>
+                <PersonalInfo data={data} isOwner={isOwner}/>
                 <DataContainer>
                     <Info>Title</Info>
-                    <Info><p>Title</p><div><button>Add</button><button>Toogle</button></div></Info>
+                    <Info>
+                        <p>Title</p>
+                        <div>
+                            <button>Add</button>
+                            <button>Toogle</button>
+                        </div>
+                    </Info>
                     <Info>Title</Info>
                 </DataContainer>
             </MainContainer>

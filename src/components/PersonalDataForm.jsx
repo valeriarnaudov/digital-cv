@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { PersonalInfo } from "../sources/PersonalInfo";
+import { PersonalInfoForm } from "../sources/PersonalInfo";
 import {
     Form,
     FormContainer,
@@ -61,7 +61,7 @@ function PersonalDataForm({ setData, user, data }) {
                         onChange={(e) => setFile(e.target.files[0])}
                     />
 
-                    {PersonalInfo.map((el) => (
+                    {PersonalInfoForm.map((el) => (
                         <InputContainer key={el.id}>
                             <FormLabel id={el.id}>{el.label}</FormLabel>
                             <FormInput
