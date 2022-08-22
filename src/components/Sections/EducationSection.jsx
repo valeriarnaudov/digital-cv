@@ -1,15 +1,17 @@
-import React from "react";
-import { Info,     AddBtn,
+import React, { useState } from "react";
+import {
+    Info,
+    AddBtn,
     Buttons,
     Title,
     ToogleBtn,
-    InformationContainer, } from "../../styles/DataInfoElements";
-import { FaRegArrowAltCircleDown } from "react-icons/fa";
+    InformationContainer,
+} from "../../styles/DataInfoElements";
+import { FaRegArrowAltCircleDown, FaRegArrowAltCircleUp } from "react-icons/fa";
 import { BiMessageSquareAdd } from "react-icons/bi";
 
 function Education({ data, isOwner }) {
-
-
+    const [toogle, setToogle] = useState(false);
 
     return (
         <>
@@ -22,14 +24,16 @@ function Education({ data, isOwner }) {
                             <BiMessageSquareAdd />
                         </AddBtn>
                     )}
-                    <ToogleBtn>
-                        <FaRegArrowAltCircleDown />
+                    <ToogleBtn onClick={() => setToogle((toogle) => !toogle)}>
+                        {!toogle ? (
+                            <FaRegArrowAltCircleDown />
+                        ) : (
+                            <FaRegArrowAltCircleUp />
+                        )}
                     </ToogleBtn>
                 </Buttons>
             </Info>
-            <InformationContainer>
-
-            </InformationContainer>
+            {toogle && <InformationContainer></InformationContainer>}
         </>
     );
 }

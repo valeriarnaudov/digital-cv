@@ -55,10 +55,10 @@ function Account() {
                 <PersonalInfo data={data} isOwner={isOwner} />
 
                 <DataContainer>
-                    <WorkExp data={data} isOwner={isOwner} />
-                    <Education data={data} isOwner={isOwner} />
-                    <OtherSkills data={data} isOwner={isOwner} />
-                    <Courses data={data} isOwner={isOwner} />
+                    <WorkExp data={data} setData={setData} isOwner={isOwner} />
+                    <Education data={data} setData={setData} isOwner={isOwner} />
+                    <OtherSkills data={data} setData={setData} isOwner={isOwner} />
+                    <Courses data={data} setData={setData} isOwner={isOwner} />
                 </DataContainer>
             </MainContainer>
         </>

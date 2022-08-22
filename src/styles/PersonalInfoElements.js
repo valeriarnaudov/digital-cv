@@ -2,6 +2,9 @@ import styled from "styled-components";
 import { MAIN_BLUE } from "../variables/StyleColors";
 
 export const PersonalInfoContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
     height: 100%;
     background-color: #fff;

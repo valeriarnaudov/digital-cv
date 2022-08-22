@@ -10,7 +10,7 @@ import {
     ProfileImg,
     InputContainer,
     FormButton,
-} from "../styles/FormElements";
+} from "../styles/AccountFormElements";
 import { uploadFile } from "../services/uploadFile";
 import { createAccoutCollection } from "../services/startCvService";
 
