@@ -11,6 +11,7 @@ import {
 } from "../../styles/PersonalInfoElements";
 
 function PersonalInfo({ data, isOwner }) {
+    
     return (
         <>
             <PersonalInfoContainer>
@@ -27,7 +28,7 @@ function PersonalInfo({ data, isOwner }) {
                         </DisplayRow>
                     ))}
                 </PersonalDataContainer>
-                {isOwner && (
+                {isOwner && ( 
                     <EditPersonalData>Edit</EditPersonalData>
                 )}
             </PersonalInfoContainer>

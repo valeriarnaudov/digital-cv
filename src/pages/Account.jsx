@@ -4,13 +4,13 @@ import { useParams } from "react-router-dom";
 import Loading from "../components/Loading";
 import PersonalInfo from "../components/MainComponents/PersonalInfo";
 import PersonalDataForm from "../components/PersonalDataForm";
+import Courses from "../components/Sections/CoursesSection";
+import Education from "../components/Sections/EducationSection";
+import OtherSkills from "../components/Sections/OtherSkillsSection";
+import WorkExp from "../components/Sections/WorkExpSection";
 import { UserAuth } from "../context/AuthContext";
 import { getData } from "../services/dataServices";
-import {
-    DataContainer,
-    Info,
-    MainContainer,
-} from "../styles/AccountElements";
+import { DataContainer, MainContainer } from "../styles/AccountElements";
 
 function Account() {
     const [isOwner, setIsOwner] = useState(false);
@@ -52,17 +52,13 @@ function Account() {
     return (
         <>
             <MainContainer>
-                <PersonalInfo data={data} isOwner={isOwner}/>
+                <PersonalInfo data={data} isOwner={isOwner} />
+
                 <DataContainer>
-                    <Info>Title</Info>
-                    <Info>
-                        <p>Title</p>
-                        <div>
-                            <button>Add</button>
-                            <button>Toogle</button>
-                        </div>
-                    </Info>
-                    <Info>Title</Info>
+                    <WorkExp data={data} isOwner={isOwner} />
+                    <Education data={data} isOwner={isOwner} />
+                    <OtherSkills data={data} isOwner={isOwner} />
+                    <Courses data={data} isOwner={isOwner} />
                 </DataContainer>
             </MainContainer>
         </>

@@ -70,9 +70,9 @@ export const PersonalInfoForm = [
     },
     {
         id: "birthday",
-        label: "*Birthday",
+        label: "*Date of birth",
         type: "date",
-        placeholder: "Enter your birthday",
+        placeholder: "Enter your date of birth",
         value: "",
         required: true,
     },
@@ -121,7 +121,7 @@ export const PersonalInfoData = [
     },
     {
         id: "birthday",
-        text: "Birthday:",
+        text: "Date of birth:",
     },
     {
         id: "nationality",
