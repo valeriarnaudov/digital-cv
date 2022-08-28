@@ -8,7 +8,7 @@ export const getData = async (userId, setData) => {
         setData(data.data());
         return data.data();
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
 };
 
@@ -28,7 +28,7 @@ export const getWorkExp = async (userId, setWorkExp) => {
         const result = await getDocs(
             collection(db, "accounts", userId, "workexp")
         );
-        result.docs.forEach(doc => list.push({...doc.data(), id: doc.id}))
+        result.docs.forEach((doc) => list.push({ ...doc.data(), id: doc.id }));
         setWorkExp(list);
         return list;
     } catch (error) {
@@ -38,7 +38,10 @@ export const getWorkExp = async (userId, setWorkExp) => {
 
 export const setEducation = async (userId, input) => {
     try {
-        await setDoc(doc(collection(db, "accounts", userId, "education")), input);
+        await setDoc(
+            doc(collection(db, "accounts", userId, "education")),
+            input
+        );
         toast.success("Data uploaded successfully");
     } catch (error) {
         console.log(error);
@@ -52,7 +55,7 @@ export const getEducation = async (userId, setEducation) => {
         const result = await getDocs(
             collection(db, "accounts", userId, "education")
         );
-        result.docs.forEach(doc => list.push({...doc.data(), id: doc.id}))
+        result.docs.forEach((doc) => list.push({ ...doc.data(), id: doc.id }));
         setEducation(list);
         return list;
     } catch (error) {
@@ -76,8 +79,35 @@ export const getCourses = async (userId, setCourses) => {
         const result = await getDocs(
             collection(db, "accounts", userId, "courses")
         );
-        result.docs.forEach(doc => list.push({...doc.data(), id: doc.id}))
+        result.docs.forEach((doc) => list.push({ ...doc.data(), id: doc.id }));
         setCourses(list);
+        return list;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export const setOtherSkills = async (userId, input) => {
+    try {
+        await setDoc(
+            doc(collection(db, "accounts", userId, "otherskills")),
+            input
+        );
+        toast.success("Data uploaded successfully");
+    } catch (error) {
+        console.log(error);
+        toast.error("Error on unploading data");
+    }
+};
+
+export const getOtherSkills = async (userId, setOtherSkills) => {
+    try {
+        const list = [];
+        const result = await getDocs(
+            collection(db, "accounts", userId, "otherskills")
+        );
+        result.docs.forEach((doc) => list.push({ ...doc.data(), id: doc.id }));
+        setOtherSkills(list);
         return list;
     } catch (error) {
         console.log(error);

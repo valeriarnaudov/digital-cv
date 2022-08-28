@@ -67,9 +67,19 @@ export const FormButton = styled.button`
     margin-top: 20px;
     margin-bottom: 20px;
     transition: all 0.5s ease-in-out;
+    cursor: pointer;
 
     &:hover {
         background-color: #fff;
         color: ${MAIN_BLUE};
     }
 `;
+
+export const TextArea = styled.textarea`
+    border: 3px solid ${MAIN_BLUE};
+    width: 100%;
+    margin-top: 20px;
+    resize: none;
+    border-radius: 10px;
+    height: 300px;
+`
