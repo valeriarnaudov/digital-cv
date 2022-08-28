@@ -1,17 +1,34 @@
-import React from 'react'
+import React from "react";
+import {
+    Company,
+    Date,
+    Description,
+    FirstLine,
+    FlexContainer,
+    Occupation,
+    Title,
+} from "../../styles/SingleInfoContainer";
 
-function WorkExpSingleInfo({doc}) {
-  return (
-    <>
-        <p>{doc?.id}</p>
-        <p>{doc?.from}</p>
-        <p>{doc?.to}</p>
-        <p>{doc?.occupation}</p>
-        <p>{doc?.company}</p>
-        <p>{doc?.description}</p>
-      
-    </>
-  )
+function WorkExpSingleInfo({ doc }) {
+    return (
+        <>
+            <FirstLine>
+                {doc.from && doc.to && (
+                    <Date>
+                        {doc?.from} - {doc?.to}
+                    </Date>
+                )}
+                {doc.occupation && <Occupation>Occupation: {doc?.occupation}</Occupation>}
+                {doc.company && <Company>Company: {doc?.company}</Company>}
+            </FirstLine>
+            {doc.description && (
+                <FlexContainer>
+                    <Title>Achievements/Tasks: </Title>
+                    <Description>{doc.description}</Description>
+                </FlexContainer>
+            )}
+        </>
+    );
 }
 
-export default WorkExpSingleInfo
+export default WorkExpSingleInfo;
