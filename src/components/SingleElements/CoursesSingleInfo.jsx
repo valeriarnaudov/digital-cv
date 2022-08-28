@@ -8,7 +8,7 @@ import {
     Title,
 } from "../../styles/SingleInfoContainer";
 
-function EducationSingleInfo({ doc }) {
+function CoursesSingleInfo({ doc }) {
     return (
         <>
             <FirstLine>
@@ -37,4 +37,4 @@ function EducationSingleInfo({ doc }) {
     );
 }
 
-export default EducationSingleInfo;
+export default CoursesSingleInfo;

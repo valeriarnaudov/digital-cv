@@ -59,3 +59,27 @@ export const getEducation = async (userId, setEducation) => {
         console.log(error);
     }
 };
+
+export const setCourses = async (userId, input) => {
+    try {
+        await setDoc(doc(collection(db, "accounts", userId, "courses")), input);
+        toast.success("Data uploaded successfully");
+    } catch (error) {
+        console.log(error);
+        toast.error("Error on unploading data");
+    }
+};
+
+export const getCourses = async (userId, setCourses) => {
+    try {
+        const list = [];
+        const result = await getDocs(
+            collection(db, "accounts", userId, "courses")
+        );
+        result.docs.forEach(doc => list.push({...doc.data(), id: doc.id}))
+        setCourses(list);
+        return list;
+    } catch (error) {
+        console.log(error);
+    }
+};

@@ -21,14 +21,16 @@ function WorkExp({ data, isOwner, setData }) {
     useEffect(() => {
         const fetchData = async () => {
             await getWorkExp(data.user, setWorkExp);
-        }
+        };
         fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [add]);
 
     return (
         <>
-            {add && <WorkExpForm data={data} setData={setData} setAdd={setAdd}/>}
+            {add && (
+                <WorkExpForm data={data} setData={setData} setAdd={setAdd} />
+            )}
             <Info>
                 <Title>Work Experience</Title>
 
@@ -47,10 +49,13 @@ function WorkExp({ data, isOwner, setData }) {
                     </ToogleBtn>
                 </Buttons>
             </Info>
-            {toogle && <InformationContainer>
-                {workExp?.map((doc) => <WorkExpSingleInfo doc={doc}/>)}
-                </InformationContainer>}
-            
+            {toogle && (
+                <InformationContainer>
+                    {workExp?.map((doc) => (
+                        <WorkExpSingleInfo doc={doc} />
+                    ))}
+                </InformationContainer>
+            )}
         </>
     );
 }

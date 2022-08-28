@@ -24,7 +24,7 @@ function Education({ data, isOwner }) {
         };
         fetchData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [add]);
 
     return (
         <>

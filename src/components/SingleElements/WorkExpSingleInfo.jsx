@@ -18,7 +18,9 @@ function WorkExpSingleInfo({ doc }) {
                         {doc?.from} - {doc?.to}
                     </Date>
                 )}
-                {doc.occupation && <Occupation>Occupation: {doc?.occupation}</Occupation>}
+                {doc.occupation && (
+                    <Occupation>Occupation: {doc?.occupation}</Occupation>
+                )}
                 {doc.company && <Company>Company: {doc?.company}</Company>}
             </FirstLine>
             {doc.description && (
