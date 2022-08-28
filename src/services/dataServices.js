@@ -35,3 +35,27 @@ export const getWorkExp = async (userId, setWorkExp) => {
         console.log(error);
     }
 };
+
+export const setEducation = async (userId, input) => {
+    try {
+        await setDoc(doc(collection(db, "accounts", userId, "education")), input);
+        toast.success("Data uploaded successfully");
+    } catch (error) {
+        console.log(error);
+        toast.error("Error on unploading data");
+    }
+};
+
+export const getEducation = async (userId, setEducation) => {
+    try {
+        const list = [];
+        const result = await getDocs(
+            collection(db, "accounts", userId, "education")
+        );
+        result.docs.forEach(doc => list.push({...doc.data(), id: doc.id}))
+        setEducation(list);
+        return list;
+    } catch (error) {
+        console.log(error);
+    }
+};
