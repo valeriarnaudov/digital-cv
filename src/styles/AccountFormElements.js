@@ -3,6 +3,7 @@ import { MAIN_BLUE } from "../variables/StyleColors";
 
 export const FormContainer = styled.div`
     display: flex;
+    margin: 0 auto;
     flex-direction: column;
     align-items: center;
     justify-content: center;
