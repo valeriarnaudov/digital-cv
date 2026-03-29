@@ -66,6 +66,9 @@ export const FlexContainer = styled.div`
 
     @media (max-width: 768px) {
         width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
     }
 `
 

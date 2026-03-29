@@ -13,6 +13,13 @@ export const MainContainer = styled.div`
         grid-template-columns: 1fr;
         gap: 20px;
         margin: 20px auto;
+        width: 95%;
+    }
+
+    @media (max-width: 768px) {
+        width: 100%;
+        margin: 10px 0;
+        padding: 0;
     }
 
     @media print {

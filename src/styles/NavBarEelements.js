@@ -20,7 +20,7 @@ export const Nav = styled.nav`
     width: 100%;
     box-sizing: border-box;
     @media (max-width: 768px) {
-        padding: 0 20px;
+        padding: 0 15px;
     }
 `;
 

@@ -24,6 +24,11 @@ export const Info = styled.div`
         border-radius: 0 !important;
         box-shadow: none !important;
     }
+
+    @media (max-width: 768px) {
+        margin-left: 0;
+        padding: 10px 15px;
+    }
 `;
 
 export const Title = styled.h1`
@@ -41,6 +46,10 @@ export const Title = styled.h1`
         color: #0f172a !important;
         font-size: 18px;
         margin: 0;
+    }
+
+    @media (max-width: 768px) {
+        font-size: 18px;
     }
 `;
 
@@ -104,5 +113,11 @@ export const InformationContainer = styled.div`
         margin-left: 0;
         margin-bottom: 20px;
         margin-top: 0;
+    }
+
+    @media (max-width: 768px) {
+        width: 100%;
+        margin-left: 0;
+        padding: 15px;
     }
 `;
