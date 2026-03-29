@@ -1,4 +1,4 @@
-import { collection, doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc } from "firebase/firestore";
+import { collection, doc, getDoc, setDoc, updateDoc, deleteDoc, onSnapshot } from "firebase/firestore";
 import { toast } from "react-toastify";
 import { db } from "../firebase";
 
@@ -31,19 +31,17 @@ export const setWorkExp = async (userId, input) => {
         toast.success("Data uploaded successfully");
     } catch (error) {
         console.log(error);
-        toast.error("Error on unploading data");
+        toast.error("Error on uploading data");
     }
 };
 
-export const getWorkExp = async (userId, setWorkExp) => {
+export const getWorkExp = (userId, setWorkExp) => {
     try {
-        const list = [];
-        const result = await getDocs(
-            collection(db, "accounts", userId, "workexp")
-        );
-        result.docs.forEach((doc) => list.push({ ...doc.data(), id: doc.id }));
-        setWorkExp(list);
-        return list;
+        return onSnapshot(collection(db, "accounts", userId, "workexp"), (snapshot) => {
+            const list = [];
+            snapshot.forEach((doc) => list.push({ ...doc.data(), id: doc.id }));
+            setWorkExp(list);
+        });
     } catch (error) {
         console.log(error);
     }
@@ -51,26 +49,21 @@ export const getWorkExp = async (userId, setWorkExp) => {
 
 export const setEducation = async (userId, input) => {
     try {
-        await setDoc(
-            doc(collection(db, "accounts", userId, "education")),
-            input
-        );
+        await setDoc(doc(collection(db, "accounts", userId, "education")), input);
         toast.success("Data uploaded successfully");
     } catch (error) {
         console.log(error);
-        toast.error("Error on unploading data");
+        toast.error("Error on uploading data");
     }
 };
 
-export const getEducation = async (userId, setEducation) => {
+export const getEducation = (userId, setEducation) => {
     try {
-        const list = [];
-        const result = await getDocs(
-            collection(db, "accounts", userId, "education")
-        );
-        result.docs.forEach((doc) => list.push({ ...doc.data(), id: doc.id }));
-        setEducation(list);
-        return list;
+        return onSnapshot(collection(db, "accounts", userId, "education"), (snapshot) => {
+            const list = [];
+            snapshot.forEach((doc) => list.push({ ...doc.data(), id: doc.id }));
+            setEducation(list);
+        });
     } catch (error) {
         console.log(error);
     }
@@ -82,19 +75,17 @@ export const setCourses = async (userId, input) => {
         toast.success("Data uploaded successfully");
     } catch (error) {
         console.log(error);
-        toast.error("Error on unploading data");
+        toast.error("Error on uploading data");
     }
 };
 
-export const getCourses = async (userId, setCourses) => {
+export const getCourses = (userId, setCourses) => {
     try {
-        const list = [];
-        const result = await getDocs(
-            collection(db, "accounts", userId, "courses")
-        );
-        result.docs.forEach((doc) => list.push({ ...doc.data(), id: doc.id }));
-        setCourses(list);
-        return list;
+        return onSnapshot(collection(db, "accounts", userId, "courses"), (snapshot) => {
+            const list = [];
+            snapshot.forEach((doc) => list.push({ ...doc.data(), id: doc.id }));
+            setCourses(list);
+        });
     } catch (error) {
         console.log(error);
     }
@@ -102,26 +93,21 @@ export const getCourses = async (userId, setCourses) => {
 
 export const setOtherSkills = async (userId, input) => {
     try {
-        await setDoc(
-            doc(collection(db, "accounts", userId, "otherskills")),
-            input
-        );
+        await setDoc(doc(collection(db, "accounts", userId, "otherskills")), input);
         toast.success("Data uploaded successfully");
     } catch (error) {
         console.log(error);
-        toast.error("Error on unploading data");
+        toast.error("Error on uploading data");
     }
 };
 
-export const getOtherSkills = async (userId, setOtherSkills) => {
+export const getOtherSkills = (userId, setOtherSkills) => {
     try {
-        const list = [];
-        const result = await getDocs(
-            collection(db, "accounts", userId, "otherskills")
-        );
-        result.docs.forEach((doc) => list.push({ ...doc.data(), id: doc.id }));
-        setOtherSkills(list);
-        return list;
+        return onSnapshot(collection(db, "accounts", userId, "otherskills"), (snapshot) => {
+            const list = [];
+            snapshot.forEach((doc) => list.push({ ...doc.data(), id: doc.id }));
+            setOtherSkills(list);
+        });
     } catch (error) {
         console.log(error);
     }
@@ -137,15 +123,13 @@ export const setLanguages = async (userId, input) => {
     }
 };
 
-export const getLanguages = async (userId, setLanguages) => {
+export const getLanguages = (userId, setLanguages) => {
     try {
-        const list = [];
-        const result = await getDocs(
-            collection(db, "accounts", userId, "languages")
-        );
-        result.docs.forEach((doc) => list.push({ ...doc.data(), id: doc.id }));
-        setLanguages(list);
-        return list;
+        return onSnapshot(collection(db, "accounts", userId, "languages"), (snapshot) => {
+            const list = [];
+            snapshot.forEach((doc) => list.push({ ...doc.data(), id: doc.id }));
+            setLanguages(list);
+        });
     } catch (error) {
         console.log(error);
     }
@@ -161,15 +145,13 @@ export const setProjects = async (userId, input) => {
     }
 };
 
-export const getProjects = async (userId, setProjects) => {
+export const getProjects = (userId, setProjects) => {
     try {
-        const list = [];
-        const result = await getDocs(
-            collection(db, "accounts", userId, "projects")
-        );
-        result.docs.forEach((doc) => list.push({ ...doc.data(), id: doc.id }));
-        setProjects(list);
-        return list;
+        return onSnapshot(collection(db, "accounts", userId, "projects"), (snapshot) => {
+            const list = [];
+            snapshot.forEach((doc) => list.push({ ...doc.data(), id: doc.id }));
+            setProjects(list);
+        });
     } catch (error) {
         console.log(error);
     }

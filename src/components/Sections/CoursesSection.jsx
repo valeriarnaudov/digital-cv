@@ -18,12 +18,12 @@ function Courses({ data, isOwner, isActive, onToggle }) {
     const [courses, setCourses] = useState([]);
 
     useEffect(() => {
-        const fetchData = async () => {
-            await getCourses(data.user, setCourses);
-        };
-        fetchData();
+        const unsubscribe = getCourses(data.user, setCourses);
+        return () => {
+            if (unsubscribe) unsubscribe();
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [add]);
+    }, []);
 
     return (
         <>

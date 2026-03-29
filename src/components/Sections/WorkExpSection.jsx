@@ -18,12 +18,12 @@ function WorkExp({ data, isOwner, setData, isActive, onToggle }) {
     const [workExp, setWorkExp] = useState([]);
 
     useEffect(() => {
-        const fetchData = async () => {
-            await getWorkExp(data.user, setWorkExp);
-        };
-        fetchData();
+        const unsubscribe = getWorkExp(data.user, setWorkExp);
+        return () => {
+            if (unsubscribe) unsubscribe();
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [add]);
+    }, []);
 
     return (
         <>

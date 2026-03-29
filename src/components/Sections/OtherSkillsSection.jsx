@@ -18,12 +18,12 @@ function OtherSkills({ data, isOwner, isActive, onToggle }) {
     const [otherSkills, setOtherSkills] = useState([]);
 
     useEffect(() => {
-        const fetchData = async () => {
-            await getOtherSkills(data.user, setOtherSkills);
-        };
-        fetchData();
+        const unsubscribe = getOtherSkills(data.user, setOtherSkills);
+        return () => {
+            if (unsubscribe) unsubscribe();
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [add]);
+    }, []);
 
     return (
         <>

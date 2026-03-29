@@ -18,12 +18,12 @@ function Projects({ data, isOwner, isActive, onToggle }) {
     const [projects, setProjects] = useState([]);
 
     useEffect(() => {
-        const fetchData = async () => {
-            await getProjects(data.user, setProjects);
-        };
-        fetchData();
+        const unsubscribe = getProjects(data.user, setProjects);
+        return () => {
+            if (unsubscribe) unsubscribe();
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [add]);
+    }, []);
 
     return (
         <>

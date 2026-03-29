@@ -18,12 +18,12 @@ function Languages({ data, isOwner, isActive, onToggle }) {
     const [languages, setLanguages] = useState([]);
 
     useEffect(() => {
-        const fetchData = async () => {
-            await getLanguages(data.user, setLanguages);
-        };
-        fetchData();
+        const unsubscribe = getLanguages(data.user, setLanguages);
+        return () => {
+            if (unsubscribe) unsubscribe();
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [add]);
+    }, []);
 
     return (
         <>

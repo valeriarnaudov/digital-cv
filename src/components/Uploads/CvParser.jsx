@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
-import pdfToText from 'react-pdftotext';
+import * as pdfjsLib from 'pdfjs-dist';
+
 import { ParserContainer, ParseTitle, ParseSubtitle, FileUploadInput, UploadButton, LoadingText } from '../../styles/ParserElements';
 import { setWorkExp, setEducation, setProjects, setLanguages, setCourses } from '../../services/dataServices';
 import { toast } from 'react-toastify';
+
+// Configure Webpack worker explicitly to prevent compilation errors
+pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
 
 function CvParser({ data, isOwner }) {
     const [isLoading, setIsLoading] = useState(false);
     
     if (!isOwner) return null;
 
-    const extractDataWithGemini = async (text) => {
+    const extractDataWithGemini = async (base64Media, mimeType) => {
         const apiKey = process.env.REACT_APP_GEMINI_API_KEY;
         if (!apiKey) {
             toast.error("Gemini API Key is missing from .env!");
@@ -17,8 +21,14 @@ function CvParser({ data, isOwner }) {
         }
 
         const prompt = `
-        You are an expert CV parser. I will provide you with raw text extracted from a user's uploaded CV/Resume. 
-        Analyze the text and extract the data into exactly the following strict JSON structure. If a section is entirely missing from the text, return an empty array for it. Do not return any Markdown wrapping or conversational text—just the raw JSON string.
+        You are an expert, highly-lenient CV parser and data translator. I am providing you with a raw PDF document of a user's CV/Resume, which might be in BULGARIAN, English, or another language, and may be poorly formatted or image-based.
+        
+        Analyze the PDF document visually, TRANSLATE IT TO ENGLISH if necessary, and extract EVERY possible piece of data into exactly the following JSON structure. 
+        Even if the dates or details are vague (e.g., just years, or missing company names), MAKE EDUCATED GUESSES to fill the fields. 
+        DO NOT return empty arrays unless you are 100% sure the document does not contain ANY hints of Jobs, Education, Projects, Languages, or Courses.
+        
+        If a field is missing, just write "".
+        Do not return any Markdown wrapping or conversational text—just the raw JSON string.
 
         {
             "workExp": [
@@ -37,11 +47,6 @@ function CvParser({ data, isOwner }) {
                 { "from": "YYYY-MM", "to": "YYYY-MM", "institution": "string", "subject": "string", "description": "string" }
             ]
         }
-        
-        Raw CV Text:
-        ---
-        ${text}
-        ---
         `;
 
         try {
@@ -50,7 +55,15 @@ function CvParser({ data, isOwner }) {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     contents: [{
-                        parts: [{ text: prompt }]
+                        parts: [
+                            { text: prompt },
+                            {
+                                inline_data: {
+                                    mime_type: mimeType,
+                                    data: base64Media
+                                }
+                            }
+                        ]
                     }]
                 })
             });
@@ -83,24 +96,69 @@ function CvParser({ data, isOwner }) {
         }
     };
 
+    const fileToBase64 = (file) => new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result.split(',')[1]);
+        reader.onerror = (error) => reject(error);
+    });
+
+    const pdfToBase64Image = async (file) => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsArrayBuffer(file);
+            reader.onload = async () => {
+                try {
+                    const pdf = await pdfjsLib.getDocument({ data: reader.result }).promise;
+                    const page = await pdf.getPage(1);
+                    const viewport = page.getViewport({ scale: 2.0 }); // High-resolution scale for AI readability
+                    
+                    const canvas = document.createElement('canvas');
+                    const context = canvas.getContext('2d');
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+                    
+                    await page.render({
+                        canvasContext: context,
+                        viewport: viewport
+                    }).promise;
+                    
+                    const base64 = canvas.toDataURL('image/jpeg', 0.9).split(',')[1];
+                    resolve(base64);
+                } catch (err) {
+                    reject(err);
+                }
+            };
+            reader.onerror = reject;
+        });
+    };
+
     const handleFileUpload = async (event) => {
         const file = event.target.files[0];
         if (!file) return;
 
         setIsLoading(true);
         try {
-            const extractedText = await pdfToText(file);
-            console.log("Raw PDF Extracted Text Length:", extractedText.length);
-            
-            if (!extractedText || extractedText.trim().length < 20) {
-                 toast.warn("The PDF appears empty or is image-based. Text cannot be extracted.");
-                 setIsLoading(false);
-                 return;
-            }
+            let base64Data = "";
+            let resolvedMimeType = "";
 
-            toast.info("Extracting insights with Gemini AI...", { autoClose: 3000 });
+            if (file.type === "application/pdf") {
+                toast.info("Rendering PDF into high-res image...", { autoClose: 3000 });
+                base64Data = await pdfToBase64Image(file);
+                resolvedMimeType = "image/jpeg";
+            } else if (file.type.startsWith("image/")) {
+                toast.info("Processing image upload...", { autoClose: 3000 });
+                base64Data = await fileToBase64(file);
+                resolvedMimeType = file.type;
+            } else {
+                toast.error("Format not supported. Please upload a PDF, PNG, or JPG.");
+                setIsLoading(false);
+                return;
+            }
             
-            const rawParsedData = await extractDataWithGemini(extractedText);
+            toast.info("Extracting insights with Gemini AI Vision...", { autoClose: 4000 });
+            
+            const rawParsedData = await extractDataWithGemini(base64Data, resolvedMimeType);
             
             if (rawParsedData) {
                 let count = 0;
@@ -197,12 +255,12 @@ function CvParser({ data, isOwner }) {
                 <>
                     <FileUploadInput 
                         type="file" 
-                        accept=".pdf" 
+                        accept=".pdf, .png, .jpg, .jpeg" 
                         id="cv-upload" 
                         onChange={handleFileUpload}
                     />
                     <UploadButton htmlFor="cv-upload">
-                        Upload PDF CV
+                        Upload CV (PDF/Image)
                     </UploadButton>
                 </>
             )}

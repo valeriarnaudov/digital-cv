@@ -18,12 +18,12 @@ function Education({ data, isOwner, isActive, onToggle }) {
     const [education, setEducation] = useState([]);
 
     useEffect(() => {
-        const fetchData = async () => {
-            await getEducation(data.user, setEducation);
-        };
-        fetchData();
+        const unsubscribe = getEducation(data.user, setEducation);
+        return () => {
+            if (unsubscribe) unsubscribe();
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [add]);
+    }, []);
 
     return (
         <>
