@@ -48,7 +48,7 @@ function OtherSkills({ data, isOwner, isActive, onToggle }) {
             </Info>
             <InformationContainer className={isActive ? '' : 'hide'}>
                 {otherSkills?.map((doc) => (
-                    <OtherSkillsSingleInfo key={doc.id} doc={doc} />
+                    <OtherSkillsSingleInfo key={doc.id} doc={doc} isOwner={isOwner} userUid={data.user} />
                 ))}
             </InformationContainer>
         </>

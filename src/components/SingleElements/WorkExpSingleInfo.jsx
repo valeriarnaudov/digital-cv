@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { FaEdit } from "react-icons/fa";
 import {
     Company,
     Date,
@@ -7,11 +8,25 @@ import {
     FlexContainer,
     Occupation,
     Title,
+    EntryCard,
+    EditIcon
 } from "../../styles/SingleInfoContainer";
+import WorkExpForm from "../Forms/WorkExpForm";
 
-function WorkExpSingleInfo({ doc }) {
+function WorkExpSingleInfo({ doc, isOwner, userUid }) {
+    const [isEditing, setIsEditing] = useState(false);
+
+    if (isEditing) {
+        return <WorkExpForm editData={doc} isEditMode={true} setIsEditing={setIsEditing} data={{user: userUid}} setAdd={() => {}} />;
+    }
+
     return (
-        <>
+        <EntryCard>
+            {isOwner && (
+                <EditIcon onClick={() => setIsEditing(true)}>
+                    <FaEdit />
+                </EditIcon>
+            )}
             <FirstLine>
                 {doc.from && doc.to && (
                     <Date>
@@ -29,7 +44,7 @@ function WorkExpSingleInfo({ doc }) {
                     <Description>{doc.description}</Description>
                 </FlexContainer>
             )}
-        </>
+        </EntryCard>
     );
 }
 

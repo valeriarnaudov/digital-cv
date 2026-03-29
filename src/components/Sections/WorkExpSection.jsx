@@ -50,7 +50,7 @@ function WorkExp({ data, isOwner, setData, isActive, onToggle }) {
             </Info>
             <InformationContainer className={isActive ? '' : 'hide'}>
                 {workExp?.map((doc) => (
-                    <WorkExpSingleInfo key={doc.id} doc={doc} />
+                    <WorkExpSingleInfo key={doc.id} doc={doc} isOwner={isOwner} userUid={data.user} />
                 ))}
             </InformationContainer>
         </>

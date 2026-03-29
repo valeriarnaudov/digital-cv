@@ -48,7 +48,7 @@ function Languages({ data, isOwner, isActive, onToggle }) {
             </Info>
             <InformationContainer className={isActive ? '' : 'hide'}>
                 {languages?.map((doc) => (
-                    <LanguagesSingleInfo key={doc.id} doc={doc} />
+                    <LanguagesSingleInfo key={doc.id} doc={doc} isOwner={isOwner} userUid={data.user} />
                 ))}
             </InformationContainer>
         </>

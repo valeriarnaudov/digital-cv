@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { setProjects } from "../../services/dataServices";
+import { setProjects, updateEntry, deleteEntry } from "../../services/dataServices";
 import { ProjectsFormObject } from "../../sources/ProjectsFormObject";
+import { FaTrash } from "react-icons/fa";
 import {
     Form,
     FormButton,
@@ -11,11 +12,12 @@ import {
     Title,
     ButtonContainer,
     CancelButton,
+    DeleteButton,
     TextArea
 } from "../../styles/FormsElements";
 
-function ProjectsForm({ data, setAdd }) {
-    const [input, setInput] = useState({});
+function ProjectsForm({ data, setAdd, editData, isEditMode, setIsEditing }) {
+    const [input, setInput] = useState(editData || {});
 
     const inputHandler = (e) => {
         const { name, value } = e.target;
@@ -24,14 +26,27 @@ function ProjectsForm({ data, setAdd }) {
 
     const submitHandler = async (e) => {
         e.preventDefault();
-        await setProjects(data.user, input);
-        setInput({});
-        setAdd(false);
+
+        if (isEditMode) {
+            await updateEntry("projects", data.user, editData.id, input);
+            setIsEditing(false);
+        } else {
+            await setProjects(data.user, input);
+            setInput({});
+            setAdd(false);
+        }
     };
+
+    const handleDelete = async () => {
+        if (window.confirm("Are you sure you want to delete this project entry?")) {
+            await deleteEntry("projects", data.user, editData.id);
+            setIsEditing(false);
+        }
+    }
 
     return (
         <FormContainer>
-            <Title>Add Project</Title>
+            <Title>{isEditMode ? "Edit Project" : "Add Project"}</Title>
             <Form onSubmit={submitHandler}>
                 {ProjectsFormObject.map((object) => (
                     <InputContainer key={object.id}>
@@ -42,6 +57,7 @@ function ProjectsForm({ data, setAdd }) {
                                 placeholder={object.placeholder}
                                 onChange={inputHandler}
                                 required={object.required}
+                                value={input[object.id] || ""}
                             />
                         ) : (
                             <FormInput
@@ -50,13 +66,19 @@ function ProjectsForm({ data, setAdd }) {
                                 placeholder={object.placeholder}
                                 onChange={inputHandler}
                                 required={object.required}
+                                value={input[object.id] || ""}
                             />
                         )}
                     </InputContainer>
                 ))}
                 <ButtonContainer>
-                    <CancelButton type="button" onClick={() => setAdd(false)}>Cancel</CancelButton>
-                    <FormButton type="submit">Submit</FormButton>
+                    <CancelButton type="button" onClick={() => isEditMode ? setIsEditing(false) : setAdd(false)}>Cancel</CancelButton>
+                    {isEditMode && (
+                        <DeleteButton type="button" onClick={handleDelete}>
+                            <FaTrash /> Delete
+                        </DeleteButton>
+                    )}
+                    <FormButton type="submit">Save</FormButton>
                 </ButtonContainer>
             </Form>
         </FormContainer>

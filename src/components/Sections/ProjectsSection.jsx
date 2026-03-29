@@ -48,7 +48,7 @@ function Projects({ data, isOwner, isActive, onToggle }) {
             </Info>
             <InformationContainer className={isActive ? '' : 'hide'}>
                 {projects?.map((doc) => (
-                    <ProjectsSingleInfo key={doc.id} doc={doc} />
+                    <ProjectsSingleInfo key={doc.id} doc={doc} isOwner={isOwner} userUid={data.user} />
                 ))}
             </InformationContainer>
         </>

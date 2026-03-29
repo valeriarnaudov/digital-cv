@@ -48,7 +48,7 @@ function Education({ data, isOwner, isActive, onToggle }) {
             </Info>
             <InformationContainer className={isActive ? '' : 'hide'}>
                 {education?.map((doc) => (
-                    <EducationSingleInfo key={doc.id} doc={doc} />
+                    <EducationSingleInfo key={doc.id} doc={doc} isOwner={isOwner} userUid={data.user} />
                 ))}
             </InformationContainer>
         </>

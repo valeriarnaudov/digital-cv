@@ -1,4 +1,4 @@
-import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc } from "firebase/firestore";
 import { toast } from "react-toastify";
 import { db } from "../firebase";
 
@@ -172,5 +172,25 @@ export const getProjects = async (userId, setProjects) => {
         return list;
     } catch (error) {
         console.log(error);
+    }
+};
+
+export const updateEntry = async (collectionName, userId, docId, input) => {
+    try {
+        await updateDoc(doc(db, "accounts", userId, collectionName, docId), input);
+        toast.success("Entry updated successfully!");
+    } catch (error) {
+        console.error(error);
+        toast.error("Error updating entry");
+    }
+};
+
+export const deleteEntry = async (collectionName, userId, docId) => {
+    try {
+        await deleteDoc(doc(db, "accounts", userId, collectionName, docId));
+        toast.success("Entry deleted successfully!");
+    } catch (error) {
+        console.error(error);
+        toast.error("Error deleting entry");
     }
 };

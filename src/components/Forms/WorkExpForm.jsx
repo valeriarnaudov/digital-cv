@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { setWorkExp } from "../../services/dataServices";
+import { setWorkExp, updateEntry, deleteEntry } from "../../services/dataServices";
 import { WorkExpFormObject } from "../../sources/WorkExpFormObject";
+import { FaTrash } from "react-icons/fa";
 import {
     Form,
     FormButton,
@@ -11,11 +12,12 @@ import {
     Title,
     ButtonContainer,
     CancelButton,
+    DeleteButton,
     TextArea
 } from "../../styles/FormsElements";
 
-function WorkExpForm({ setData, data, setAdd }) {
-    const [input, setInput] = useState({});
+function WorkExpForm({ setData, data, setAdd, editData, isEditMode, setIsEditing }) {
+    const [input, setInput] = useState(editData || {});
 
     const inputHandler = (e) => {
         const { name, value } = e.target;
@@ -33,16 +35,27 @@ function WorkExpForm({ setData, data, setAdd }) {
     const submitHandler = async (e) => {
         e.preventDefault();
 
-        await setWorkExp(data.user, input);
-        // setData(...data)
-        setInput({});
-        setAdd(false);
+        if (isEditMode) {
+            await updateEntry("workexp", data.user, editData.id, input);
+            setIsEditing(false);
+        } else {
+            await setWorkExp(data.user, input);
+            setInput({});
+            setAdd(false);
+        }
     };
+
+    const handleDelete = async () => {
+        if (window.confirm("Are you sure you want to delete this specific entry?")) {
+            await deleteEntry("workexp", data.user, editData.id);
+            setIsEditing(false);
+        }
+    }
 
     return (
         <>
             <FormContainer>
-                <Title>Add Work Experience</Title>
+                <Title>{isEditMode ? "Edit Work Experience" : "Add Work Experience"}</Title>
                 <Form onSubmit={submitHandler}>
                     {WorkExpFormObject.map((object) => (
                         <InputContainer key={object.id}>
@@ -53,6 +66,7 @@ function WorkExpForm({ setData, data, setAdd }) {
                                     placeholder={object.placeholder}
                                     onChange={inputHandler}
                                     required={object.required}
+                                    value={input[object.id] || ""}
                                 />
                             ) : (
                                 <FormInput
@@ -61,13 +75,19 @@ function WorkExpForm({ setData, data, setAdd }) {
                                     placeholder={object.placeholder}
                                     onChange={inputHandler}
                                     required={object.required}
+                                    value={input[object.id] || ""}
                                 />
                             )}
                         </InputContainer>
                     ))}
                     <ButtonContainer>
-                        <CancelButton type="button" onClick={() => setAdd(false)}>Cancel</CancelButton>
-                        <FormButton type="submit">Submit</FormButton>
+                        <CancelButton type="button" onClick={() => isEditMode ? setIsEditing(false) : setAdd(false)}>Cancel</CancelButton>
+                        {isEditMode && (
+                            <DeleteButton type="button" onClick={handleDelete}>
+                                <FaTrash /> Delete
+                            </DeleteButton>
+                        )}
+                        <FormButton type="submit">Save</FormButton>
                     </ButtonContainer>
                 </Form>
             </FormContainer>

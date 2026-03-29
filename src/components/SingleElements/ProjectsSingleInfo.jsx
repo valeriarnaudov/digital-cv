@@ -1,15 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
+import { FaEdit } from "react-icons/fa";
 import {
     Company,
     Description,
     FirstLine,
     FlexContainer,
     Title,
+    EntryCard,
+    EditIcon
 } from "../../styles/SingleInfoContainer";
+import ProjectsForm from "../Forms/ProjectsForm";
 
-function ProjectsSingleInfo({ doc }) {
+function ProjectsSingleInfo({ doc, isOwner, userUid }) {
+    const [isEditing, setIsEditing] = useState(false);
+
+    if (isEditing) {
+        return <ProjectsForm editData={doc} isEditMode={true} setIsEditing={setIsEditing} data={{user: userUid}} setAdd={() => {}} />;
+    }
+
     return (
-        <div style={{ marginBottom: "15px" }}>
+        <EntryCard>
+            {isOwner && (
+                <EditIcon onClick={() => setIsEditing(true)}>
+                    <FaEdit />
+                </EditIcon>
+            )}
             <FirstLine>
                 {doc.name && <Company>{doc.name}</Company>}
             </FirstLine>
@@ -26,7 +41,7 @@ function ProjectsSingleInfo({ doc }) {
                     </Description>
                 </FlexContainer>
             )}
-        </div>
+        </EntryCard>
     );
 }
 

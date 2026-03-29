@@ -79,3 +79,41 @@ export const Title = styled.h4`
         font-weight: 700;
     }
 `
+
+export const EntryCard = styled.div`
+    position: relative;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    
+    &:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    @media print {
+        border-bottom: none !important;
+        margin-bottom: 15px;
+        padding-bottom: 0;
+    }
+`;
+
+export const EditIcon = styled.div`
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+        color: #60a5fa;
+        transform: scale(1.1) rotate(5deg);
+    }
+
+    @media print {
+        display: none !important;
+    }
+`;

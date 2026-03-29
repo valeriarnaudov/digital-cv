@@ -133,6 +133,30 @@ export const ButtonContainer = styled.div`
 export const CancelButton = styled.button`
     flex: 1;
     padding: 14px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
+`;
+
+export const DeleteButton = styled.button`
+    flex: 1;
+    padding: 14px;
     background: linear-gradient(135deg, #f43f5e, #e11d48);
     color: white;
     border: none;

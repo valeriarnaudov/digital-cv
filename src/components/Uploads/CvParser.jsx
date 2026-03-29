@@ -63,10 +63,18 @@ function CvParser({ data, isOwner }) {
             }
             
             const textResponse = rawData.candidates[0].content.parts[0].text;
+            console.log("Raw Gemini Text:", textResponse);
             
-            // Try to extract JSON if it was wrapped in markdown
-            const cleanJsonString = textResponse.replace(/^```json\s*/i, '').replace(/\s*```$/i, '').trim();
-            return JSON.parse(cleanJsonString);
+            const jsonMatch = textResponse.match(/\{[\s\S]*\}/);
+            
+            if (!jsonMatch) {
+                toast.error("AI returned invalid structure.");
+                return null;
+            }
+            
+            const parsed = JSON.parse(jsonMatch[0]);
+            console.log("Parsed Object:", parsed);
+            return parsed;
 
         } catch (error) {
             console.error("Gemini API Error:", error);
@@ -82,40 +90,82 @@ function CvParser({ data, isOwner }) {
         setIsLoading(true);
         try {
             const extractedText = await pdfToText(file);
+            console.log("Raw PDF Extracted Text Length:", extractedText.length);
+            
+            if (!extractedText || extractedText.trim().length < 20) {
+                 toast.warn("The PDF appears empty or is image-based. Text cannot be extracted.");
+                 setIsLoading(false);
+                 return;
+            }
+
             toast.info("Extracting insights with Gemini AI...", { autoClose: 3000 });
             
-            const parsedData = await extractDataWithGemini(extractedText);
+            const rawParsedData = await extractDataWithGemini(extractedText);
             
-            if (parsedData) {
+            if (rawParsedData) {
                 let count = 0;
                 
-                if (parsedData.workExp && parsedData.workExp.length > 0) {
-                    for (const entry of parsedData.workExp) {
-                        await setWorkExp(data.user, entry);
+                // Extremely fault-tolerant payload flattener
+                let flatData = typeof rawParsedData === 'object' ? rawParsedData : {};
+                
+                // If nested inside an outer object (e.g. { cv: { workExp: [] } })
+                if (Object.keys(flatData).length === 1 && typeof Object.values(flatData)[0] === 'object') {
+                    flatData = Object.values(flatData)[0];
+                }
+
+                // Recursively search for matching array blocks case-insensitively
+                const findArray = (target) => {
+                    for (let key in flatData) {
+                        if (key.toLowerCase().includes(target.toLowerCase()) && Array.isArray(flatData[key])) {
+                            return flatData[key];
+                        }
+                    }
+                    return [];
+                };
+
+                const normalizeObject = (obj) => {
+                    let sanitized = {};
+                    for (let key in obj) {
+                        sanitized[key.toLowerCase()] = obj[key];
+                    }
+                    return sanitized;
+                };
+
+                const wExp = findArray('work');
+                const edu = findArray('education');
+                const proj = findArray('project');
+                const lang = findArray('language');
+                const crs = findArray('course');
+
+                console.log("Flattened Data Extract:", { wExp, edu, proj, lang, crs });
+
+                if (wExp.length > 0) {
+                    for (const entry of wExp) {
+                        await setWorkExp(data.user, normalizeObject(entry));
                         count++;
                     }
                 }
-                if (parsedData.education && parsedData.education.length > 0) {
-                    for (const entry of parsedData.education) {
-                        await setEducation(data.user, entry);
+                if (edu.length > 0) {
+                    for (const entry of edu) {
+                        await setEducation(data.user, normalizeObject(entry));
                         count++;
                     }
                 }
-                if (parsedData.projects && parsedData.projects.length > 0) {
-                    for (const entry of parsedData.projects) {
-                        await setProjects(data.user, entry);
+                if (proj.length > 0) {
+                    for (const entry of proj) {
+                        await setProjects(data.user, normalizeObject(entry));
                         count++;
                     }
                 }
-                if (parsedData.languages && parsedData.languages.length > 0) {
-                    for (const entry of parsedData.languages) {
-                        await setLanguages(data.user, entry);
+                if (lang.length > 0) {
+                    for (const entry of lang) {
+                        await setLanguages(data.user, normalizeObject(entry));
                         count++;
                     }
                 }
-                if (parsedData.courses && parsedData.courses.length > 0) {
-                    for (const entry of parsedData.courses) {
-                        await setCourses(data.user, entry);
+                if (crs.length > 0) {
+                    for (const entry of crs) {
+                        await setCourses(data.user, normalizeObject(entry));
                         count++;
                     }
                 }
