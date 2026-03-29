@@ -1,8 +1,6 @@
-import React, { useState } from "react";
-import { GoogleButton } from "react-google-button";
+import React, { useState, useEffect } from "react";
 import { UserAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 import { toast } from "react-toastify";
 import {
     PageWrapper,
@@ -13,8 +11,10 @@ import {
     FeatureList,
     FeatureItem,
     AuthSection,
-    AuthTitle
+    AuthTitle,
+    GlassGoogleBtn
 } from "../styles/SignInElements";
+import { FcGoogle } from "react-icons/fc";
 import Loading from "../components/Loading";
 
 function SignIn() {
@@ -56,7 +56,7 @@ function SignIn() {
                         Secure your custom URL and stand out to top recruiters instantly.
                     </SubTitle>
                     <FeatureList>
-                        <FeatureItem>Custom, elegant URL slugs (e.g. /valeri)</FeatureItem>
+                        <FeatureItem>Custom, elegant URL slugs (e.g. /user)</FeatureItem>
                         <FeatureItem>Premium, interactive glassmorphic design</FeatureItem>
                         <FeatureItem>Direct export to perfectly formatted PDFs</FeatureItem>
                         <FeatureItem>One-click seamless social sharing to recruiters</FeatureItem>
@@ -64,7 +64,10 @@ function SignIn() {
                 </HeroSection>
                 <AuthSection>
                     <AuthTitle>Get Started Free</AuthTitle>
-                    <GoogleButton onClick={handleGoogleSignIn} />
+                    <GlassGoogleBtn onClick={handleGoogleSignIn}>
+                        <FcGoogle size={24} />
+                        Sign in with Google
+                    </GlassGoogleBtn>
                 </AuthSection>
             </GlassCard>
         </PageWrapper>

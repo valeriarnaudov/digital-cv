@@ -11,9 +11,6 @@ export const PageWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(-45deg, #0f172a, #1e1b4b, #312e81, #1e3a8a);
-    background-size: 400% 400%;
-    animation: ${gradientAnimation} 15s ease infinite;
     padding: 40px 20px;
     box-sizing: border-box;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
@@ -110,4 +107,34 @@ export const AuthTitle = styled.h2`
     color: white;
     margin-bottom: 24px;
     font-weight: 600;
+`;
+
+export const GlassGoogleBtn = styled.button`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    width: 280px;
+    padding: 14px 24px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
 `;

@@ -9,23 +9,32 @@ export const Info = styled.div`
     flex-direction: row;
     align-items: center;
     margin-left: 20px;
-    padding: 0 20px;
-    border: 3px solid ${MAIN_BLUE};
-    background-color: #fff;
-    /* margin-bottom: 20px; */
-    border-radius: 20px;
+    padding: 10px 30px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
 `;
 
 export const Title = styled.h1`
-    font-size: 20px;
-    font-weight: bold;
-    color: ${MAIN_BLUE};
+    font-size: 22px;
+    font-weight: 800;
+    color: white;
+    letter-spacing: 0.5px;
+    background: linear-gradient(to right, #60a5fa, #c084fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 `;
+
 export const Buttons = styled.div`
     display: flex;
     flex-direction: row;
-    width: 200px;
-    justify-content: space-between;
+    width: 120px;
+    justify-content: flex-end;
+    gap: 15px;
 `;
 
 export const AddBtn = styled.button`
@@ -33,8 +42,10 @@ export const AddBtn = styled.button`
     border: none;
     font-size: 25px;
     font-weight: bold;
-    color: ${MAIN_BLUE};
+    color: #94a3b8;
     cursor: pointer;
+    transition: color 0.3s;
+    &:hover { color: white; }
 `;
 
 export const ToogleBtn = styled.button`
@@ -42,22 +53,24 @@ export const ToogleBtn = styled.button`
     border: none;
     font-size: 25px;
     font-weight: bold;
-    color: ${MAIN_BLUE};
+    color: #94a3b8;
     cursor: pointer;
+    transition: color 0.3s;
+    &:hover { color: white; }
 `;
 
 export const InformationContainer = styled.div`
-    margin-top: 0;
     display: flex;
     flex-direction: column;
-    width: 93%;
+    width: calc(100% - 20px);
     min-height: 50px;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #fff;
-    border: 3px solid ${MAIN_BLUE};
-    border-radius: 0 0px 20px 20px;
-    border-top: 0;  
-    margin-left: 37px;
-    margin-bottom: 20px;
-`
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    margin-left: 20px;
+    margin-bottom: 30px;
+    margin-top: -10px;
+    padding: 20px;
+    box-sizing: border-box;
+    color: white;
+`;

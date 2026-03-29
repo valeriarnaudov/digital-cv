@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { MAIN_BLUE } from "../variables/StyleColors";
 
 export const PersonalInfoContainer = styled.div`
     display: flex;
@@ -7,60 +6,70 @@ export const PersonalInfoContainer = styled.div`
     align-items: center;
     width: 100%;
     height: 100%;
-    background-color: #fff;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border-radius: 20px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    border: 3px solid ${MAIN_BLUE};
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 `;
 
 export const ProfileImg = styled.img`
     width: 200px;
     height: 200px;
     border-radius: 20px;
-    margin-top: 20px;
-    border: 3px solid ${MAIN_BLUE};
+    margin-top: 30px;
+    margin-bottom: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    object-fit: cover;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
 `;
 
 export const DisplayRow = styled.div`
     display: flex;
-    /* justify-content: space-between; */
     flex-direction: row;
     align-items: center;
     margin-left: 20px;
+    margin-bottom: 12px;
 `;
 
 export const PersonalDataContainer = styled.div`
     display: flex;
     flex-direction: column;
     margin: 10px;
-`;
-export const DataName = styled.p`
-    font-size: 16px;
-    font-weight: bold;
-    color: ${MAIN_BLUE};
-    margin: 0;
+    width: 85%;
 `;
 
-export const DataValue = styled.p`
+export const DataName = styled.p`
+    font-size: 15px;
+    font-weight: 600;
+    color: #94a3b8;
+    margin: 0;
+    min-width: 120px;
+`;
+
+export const DataValue = styled.div`
     margin-left: 10px;
     font-size: 16px;
-    font-weight: semi-bold;
+    font-weight: 500;
+    color: white;
+    word-break: break-word;
 `;
 
 export const EditPersonalData = styled.button`
-    padding: 10px 20px 10px 20px;
-    border: 3px solid ${MAIN_BLUE};
-    background-color: ${MAIN_BLUE};
+    padding: 10px 30px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
     color: #fff;
     font-size: 16px;
     font-weight: bold;
-    border-radius: 20px;
-    margin: 10px;
+    border-radius: 12px;
+    margin: 20px;
     cursor: pointer;
-    transition: all 0.5s ease-in-out;
+    transition: all 0.3s ease;
 
     &:hover {
-        background-color: #fff;
-        color: ${MAIN_BLUE};
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
     }
 `;
