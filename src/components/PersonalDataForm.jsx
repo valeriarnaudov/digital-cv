@@ -36,8 +36,12 @@ function PersonalDataForm({ setData, user, data }) {
             user: user.uid,
             photoURL: inputs?.photoURL || user?.photoURL,
         };
-        setData(newData);
-        await createAccoutCollection(newData, user.uid);
+        try {
+            await createAccoutCollection(newData, user.uid);
+            setData(newData);
+        } catch (error) {
+            console.error("Failed to save account", error);
+        }
     };
 
     return (

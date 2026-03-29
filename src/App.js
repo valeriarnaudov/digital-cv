@@ -7,6 +7,7 @@ import Account from "./pages/Account";
 import Protected from "./components/Protected";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Footer from "./components/Footer";
 
 function App() {
     return (
@@ -26,8 +27,10 @@ function App() {
                 />
                 <Routes>
                     <Route path={"/"} element={<SignIn />} />
-                    <Route path={"/account/:uid"} element={<Account />} />
+                    <Route path={"/account"} element={<Account />} />
+                    <Route path={"/:username"} element={<Account />} />
                 </Routes>
+                <Footer />
             </AuthContextProvider>
         </>
     );

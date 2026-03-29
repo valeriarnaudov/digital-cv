@@ -5,13 +5,15 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import {
-    DescriptionContainer,
-    DescriptionText,
-    Only,
-    SignInContainer,
-    SignInText,
-    WelcomeContainer,
+    PageWrapper,
+    GlassCard,
+    HeroSection,
     WelcomeText,
+    SubTitle,
+    FeatureList,
+    FeatureItem,
+    AuthSection,
+    AuthTitle
 } from "../styles/SignInElements";
 import Loading from "../components/Loading";
 
@@ -33,7 +35,7 @@ function SignIn() {
 
     useEffect(() => {
         if (user !== null) {
-            navigate(`/account/${user.uid}`);
+            navigate(`/account`);
         }
 
         setLoading(false);
@@ -45,28 +47,27 @@ function SignIn() {
     }
 
     return (
-        <>
-            <SignInContainer>
-                <WelcomeContainer>
-                    <WelcomeText>
-                        Welcome to <br />
-                        Digital CV
-                    </WelcomeText>
-                    <DescriptionContainer>
-                        <DescriptionText>
-                            This is a digital CV. <br /> <br /> You can create
-                            and share your CV.
-                        </DescriptionText>
-                        <DescriptionText>
-                            CREATE, <br /> EDIT, <br /> ADD, <br /> DELETE
-                            <br /> <Only>Only you!</Only>
-                        </DescriptionText>
-                    </DescriptionContainer>
-                </WelcomeContainer>
-                <SignInText>Sign in with Google to start</SignInText>
-                <GoogleButton onClick={handleGoogleSignIn} />
-            </SignInContainer>
-        </>
+        <PageWrapper>
+            <GlassCard>
+                <HeroSection>
+                    <WelcomeText>Elevate Your<br/>Professional Identity.</WelcomeText>
+                    <SubTitle>
+                        Build a captivating digital portfolio in seconds. 
+                        Secure your custom URL and stand out to top recruiters instantly.
+                    </SubTitle>
+                    <FeatureList>
+                        <FeatureItem>Custom, elegant URL slugs (e.g. /valeri)</FeatureItem>
+                        <FeatureItem>Premium, interactive glassmorphic design</FeatureItem>
+                        <FeatureItem>Direct export to perfectly formatted PDFs</FeatureItem>
+                        <FeatureItem>One-click seamless social sharing to recruiters</FeatureItem>
+                    </FeatureList>
+                </HeroSection>
+                <AuthSection>
+                    <AuthTitle>Get Started Free</AuthTitle>
+                    <GoogleButton onClick={handleGoogleSignIn} />
+                </AuthSection>
+            </GlassCard>
+        </PageWrapper>
     );
 }
 

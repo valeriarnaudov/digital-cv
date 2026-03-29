@@ -1,63 +1,113 @@
-import styled from 'styled-components';
-import { MAIN_BLUE } from '../variables/StyleColors';
+import styled, { keyframes } from 'styled-components';
 
-export const SignInContainer = styled.div`
+const gradientAnimation = keyframes`
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+`;
+
+export const PageWrapper = styled.div`
+    min-height: calc(100vh - 120px);
     display: flex;
-    margin: 0 auto;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(-45deg, #0f172a, #1e1b4b, #312e81, #1e3a8a);
+    background-size: 400% 400%;
+    animation: ${gradientAnimation} 15s ease infinite;
+    padding: 40px 20px;
+    box-sizing: border-box;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+`;
+
+export const GlassCard = styled.div`
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    padding: 60px 40px;
+    max-width: 1000px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    color: white;
+    
+    @media (min-width: 768px) {
+        flex-direction: row;
+        text-align: left;
+        justify-content: space-between;
+        padding: 60px;
+    }
+`;
+
+export const HeroSection = styled.div`
+    flex: 1;
+    margin-bottom: 40px;
+    
+    @media (min-width: 768px) {
+        margin-bottom: 0;
+        margin-right: 60px;
+    }
+`;
+
+export const WelcomeText = styled.h1`
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 16px;
+    line-height: 1.1;
+    background: linear-gradient(to right, #60a5fa, #c084fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+`;
+
+export const SubTitle = styled.p`
+    font-size: 1.25rem;
+    color: #94a3b8;
+    line-height: 1.6;
+    margin-bottom: 32px;
+`;
+
+export const FeatureList = styled.ul`
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+`;
+
+export const FeatureItem = styled.li`
+    font-size: 1.1rem;
+    color: #e2e8f0;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    
+    &::before {
+        content: "✓";
+        color: #10b981;
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
+`;
+
+export const AuthSection = styled.div`
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    justify-items: center;
-    width: 800px;
-    margin-top: 30px;
-    height: 100%;
-    background-color: #fff;
-    padding: 20px;
-    box-sizing: border-box;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 40px;
     border-radius: 20px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    z-index: 1;
-    top: 0;
-    left: 0;
-    right: 0;
+    border: 1px solid rgba(255,255,255,0.05);
+    min-width: 300px;
+`;
 
-    @media (max-width: 768px) {
-        padding: 0;
-    }
-
-`
-
-export const WelcomeContainer = styled.div`
-    background-color: lightblue;
-    width: 600px;
-    border-radius: 20px;
-    padding: 20px;
-
-`
-
-export const WelcomeText = styled.h1`
-    color: ${MAIN_BLUE};
-    font-size: 50px;
-    margin-top: 0px;
-    font-weight: bold;
-`
-
-export const DescriptionContainer = styled.div`
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-`
-
-export const DescriptionText = styled.p`
-    font-size: 20px;
-`
-
-export const Only = styled.p`
-    font-size: 30px;
-    font-weight: bold;
-    color: ${MAIN_BLUE};
-    text-decoration: underline;
-`
-
-export const SignInText = styled.h2`
-
-`
+export const AuthTitle = styled.h2`
+    font-size: 1.5rem;
+    color: white;
+    margin-bottom: 24px;
+    font-weight: 600;
+`;

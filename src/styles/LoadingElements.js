@@ -1,56 +1,41 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { MAIN_BLUE } from "../variables/StyleColors";
+
+const spin = keyframes`
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+`;
 
 export const Center = styled.div`
     display: flex;
+    flex-direction: column;
     text-align: center;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
+    background-color: #f8fafc;
 `;
 
 export const Ring = styled.div`
-    position: absolute;
-    width: 200px;
-    height: 200px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
-    animation: ring 2s linear infinite;
-    @keyframes ring {
-        0% {
-            transform: rotate(0deg);
-            box-shadow: 1px 5px 2px #e65c00;
-        }
-        50% {
-            transform: rotate(180deg);
-            box-shadow: 1px 5px 2px #18b201;
-        }
-        100% {
-            transform: rotate(360deg);
-            box-shadow: 1px 5px 2px #0456c8;
-        }
-    }
-    :before {
-        position: absolute;
-        content: "";
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 100%;
-        border-radius: 50%;
-        box-shadow: 0 0 5px rgba(225, 225, 225, 0.3);
-    }
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-top-color: #3b82f6;
+    animation: ${spin} 1s ease-in-out infinite;
+    margin-bottom: 20px;
 `;
 
 export const Text = styled.span`
-    color: ${MAIN_BLUE};
-    font-size: 20px;
+    color: #475569;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    line-height: 200px;
-    animation: text 3s ease-in-out infinite;
-    @keyframes text {
-        0% {
-            color: black;
-        }
+    animation: pulse 2s infinite ease-in-out;
+    
+    @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
     }
 `;

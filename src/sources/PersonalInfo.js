@@ -1,5 +1,13 @@
 export const PersonalInfoForm = [
     {
+        id: "username",
+        label: "*Claim your custom URL slug (e.g. valeri)",
+        type: "text",
+        placeholder: "Enter unique username",
+        value: "",
+        required: true,
+    },
+    {
         id: "displayName",
         label: "*Display Name",
         type: "text",
@@ -83,6 +91,20 @@ export const PersonalInfoForm = [
         placeholder: "Enter your nationality",
         value: "",
     },
+    {
+        id: "linkedin",
+        label: "LinkedIn URL",
+        type: "url",
+        placeholder: "https://linkedin.com/in/...",
+        value: "",
+    },
+    {
+        id: "github",
+        label: "GitHub URL",
+        type: "url",
+        placeholder: "https://github.com/...",
+        value: "",
+    },
 ];
 
 export const PersonalInfoData = [
@@ -126,5 +148,13 @@ export const PersonalInfoData = [
     {
         id: "nationality",
         text: "Nationality:",
+    },
+    {
+        id: "linkedin",
+        text: "LinkedIn:",
+    },
+    {
+        id: "github",
+        text: "GitHub:",
     },
 ];

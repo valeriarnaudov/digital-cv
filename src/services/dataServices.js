@@ -2,6 +2,19 @@ import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
 import { toast } from "react-toastify";
 import { db } from "../firebase";
 
+export const getUidByUsername = async (username) => {
+    try {
+        const usernameDoc = await getDoc(doc(db, "usernames", username.toLowerCase()));
+        if (usernameDoc.exists()) {
+            return usernameDoc.data().uid;
+        }
+        return null;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+};
+
 export const getData = async (userId, setData) => {
     try {
         const data = await getDoc(doc(db, "accounts", userId));

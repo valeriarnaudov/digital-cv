@@ -22,7 +22,15 @@ function PersonalInfo({ data, isOwner }) {
                             {!data[item.id] ? undefined : (
                                 <Fragment>
                                     <DataName>{item.text}</DataName>
-                                    <DataValue>{data[item.id]}</DataValue>
+                                    <DataValue>
+                                        {(item.id === "linkedin" || item.id === "github") ? (
+                                            <a href={data[item.id]} target="_blank" rel="noreferrer" style={{color: "inherit"}}>
+                                                {data[item.id]}
+                                            </a>
+                                        ) : (
+                                            data[item.id]
+                                        )}
+                                    </DataValue>
                                 </Fragment>
                             )}
                         </DisplayRow>
