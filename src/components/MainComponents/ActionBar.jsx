@@ -9,9 +9,9 @@ function ActionBar({ username }) {
     };
 
     const handleShare = () => {
-        let url = window.location.href;
-        navigator.clipboard.writeText(url);
-        toast.success("Ready to share! Link copied to clipboard.", {
+        const shareUrl = `${window.location.origin}/${username}`;
+        navigator.clipboard.writeText(shareUrl);
+        toast.success(`Ready to share! Link copied to clipboard.`, {
             icon: "🚀"
         });
     };

@@ -21,6 +21,12 @@ export const ParserContainer = styled.div`
         border-color: rgba(96, 165, 250, 1);
         background: rgba(15, 23, 42, 0.6);
     }
+
+    @media (max-width: 768px) {
+        padding: 20px;
+        margin-left: 0;
+        width: 100%;
+    }
 `;
 
 export const ParseTitle = styled.h3`
@@ -33,6 +39,10 @@ export const ParseTitle = styled.h3`
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         font-weight: bold;
+    }
+
+    @media (max-width: 768px) {
+        font-size: 16px;
     }
 `;
 

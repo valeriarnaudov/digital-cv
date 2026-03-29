@@ -11,9 +11,9 @@ import {
     ProfileImg,
     QrContainer
 } from "../../styles/PersonalInfoElements";
-
 function PersonalInfo({ data, isOwner, username }) {
-    
+    const userUrl = `${window.location.origin}/${username}`;
+
     return (
         <PersonalInfoContainer>
             <ProfileImg src={data.photoURL} />
@@ -21,7 +21,7 @@ function PersonalInfo({ data, isOwner, username }) {
             {username && (
                 <QrContainer className="print-qr-code">
                     <strong>DIGITAL CV:</strong>
-                    <QRCodeSVG value={`https://digital-cv.com/${username}`} size={100} level="M" />
+                    <QRCodeSVG value={userUrl} size={100} level="M" />
                 </QrContainer>
             )}
 

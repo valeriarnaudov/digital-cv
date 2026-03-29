@@ -15,7 +15,7 @@ import { UserAuth } from "../context/AuthContext";
 import { getData, getUidByUsername } from "../services/dataServices";
 import { DataContainer, MainContainer } from "../styles/AccountElements";
 import ActionBar from "../components/MainComponents/ActionBar";
-import { QRCodeSVG } from 'qrcode.react';
+
 
 function Account() {
     const [isOwner, setIsOwner] = useState(false);
@@ -37,7 +37,7 @@ function Account() {
                 if (fetchedUid) {
                     setTargetUid(fetchedUid);
                 } else {
-                    setLoading(false); // Username doesn't exist
+                    setTargetUid(username); // Fallback: Assume the parameter is a raw UID
                 }
             } else if (user) {
                 setTargetUid(user.uid); // Fallback to current user if no params (e.g., unexpected routing)
@@ -106,21 +106,36 @@ function Account() {
         return <Loading />;
     }
 
+    if (!data) {
+        return (
+            <MainContainer style={{display: "flex", justifyContent: "center", alignItems: "center", minHeight: "80vh", color: "white", padding: "20px", textAlign: "center"}}>
+                <h2>This Digital CV does not exist or has not been configured yet.</h2>
+            </MainContainer>
+        );
+    }
+
+    const publicIdentifier = username || (data && data.username) || targetUid;
+
+    const isSectionActive = (sectionName) => {
+        if (!isOwner) return true;
+        return activeSection === sectionName;
+    };
+
     return (
         <>
             <MainContainer>
-                <PersonalInfo data={data} isOwner={isOwner} username={username || targetUid} />
+                <PersonalInfo data={data} isOwner={isOwner} username={publicIdentifier} />
 
                 <DataContainer>
                     <CvParser data={data} isOwner={isOwner} />
-                    <WorkExp data={data} setData={setData} isOwner={isOwner} isActive={activeSection === 'work'} onToggle={() => setActiveSection(activeSection === 'work' ? null : 'work')} />
-                    <Education data={data} setData={setData} isOwner={isOwner} isActive={activeSection === 'education'} onToggle={() => setActiveSection(activeSection === 'education' ? null : 'education')} />
-                    <Projects data={data} setData={setData} isOwner={isOwner} isActive={activeSection === 'projects'} onToggle={() => setActiveSection(activeSection === 'projects' ? null : 'projects')} />
-                    <OtherSkills data={data} setData={setData} isOwner={isOwner} isActive={activeSection === 'skills'} onToggle={() => setActiveSection(activeSection === 'skills' ? null : 'skills')} />
-                    <Languages data={data} setData={setData} isOwner={isOwner} isActive={activeSection === 'languages'} onToggle={() => setActiveSection(activeSection === 'languages' ? null : 'languages')} />
-                    <Courses data={data} setData={setData} isOwner={isOwner} isActive={activeSection === 'courses'} onToggle={() => setActiveSection(activeSection === 'courses' ? null : 'courses')} />
+                    <WorkExp data={data} setData={setData} isOwner={isOwner} isActive={isSectionActive('work')} onToggle={() => setActiveSection(activeSection === 'work' ? null : 'work')} />
+                    <Education data={data} setData={setData} isOwner={isOwner} isActive={isSectionActive('education')} onToggle={() => setActiveSection(activeSection === 'education' ? null : 'education')} />
+                    <Projects data={data} setData={setData} isOwner={isOwner} isActive={isSectionActive('projects')} onToggle={() => setActiveSection(activeSection === 'projects' ? null : 'projects')} />
+                    <OtherSkills data={data} setData={setData} isOwner={isOwner} isActive={isSectionActive('skills')} onToggle={() => setActiveSection(activeSection === 'skills' ? null : 'skills')} />
+                    <Languages data={data} setData={setData} isOwner={isOwner} isActive={isSectionActive('languages')} onToggle={() => setActiveSection(activeSection === 'languages' ? null : 'languages')} />
+                    <Courses data={data} setData={setData} isOwner={isOwner} isActive={isSectionActive('courses')} onToggle={() => setActiveSection(activeSection === 'courses' ? null : 'courses')} />
                 </DataContainer>
-                {data && <ActionBar username={username} />}
+                {data && <ActionBar username={publicIdentifier} />}
             </MainContainer>
         </>
     );

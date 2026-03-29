@@ -4,7 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import SignIn from "./pages/SignIn";
 import { AuthContextProvider } from "./context/AuthContext";
 import Account from "./pages/Account";
-import Protected from "./components/Protected";
+
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Footer from "./components/Footer";

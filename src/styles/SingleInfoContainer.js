@@ -15,6 +15,13 @@ export const FirstLine = styled.div`
         flex-wrap: wrap;
         gap: 12px;
     }
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        gap: 6px;
+    }
 `;
 
 export const Date = styled.h3`
@@ -55,6 +62,10 @@ export const FlexContainer = styled.div`
         align-items: baseline;
         flex-wrap: wrap;
         gap: 8px;
+    }
+
+    @media (max-width: 768px) {
+        width: 100%;
     }
 `
 
@@ -115,5 +126,12 @@ export const EditIcon = styled.div`
 
     @media print {
         display: none !important;
+    }
+
+    @media (max-width: 768px) {
+        font-size: 20px;
+        padding: 5px;
+        background: rgba(0,0,0,0.1);
+        border-radius: 8px;
     }
 `;

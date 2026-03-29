@@ -17,6 +17,12 @@ export const FormContainer = styled.div`
     box-sizing: border-box;
 
     @media print { display: none !important; }
+
+    @media (max-width: 768px) {
+        padding: 20px 15px;
+        margin-left: 0;
+        width: 100%;
+    }
 `;
 
 export const Title = styled.h1`
@@ -128,6 +134,11 @@ export const ButtonContainer = styled.div`
     width: 100%;
     gap: 15px;
     margin-top: 15px;
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+        gap: 10px;
+    }
 `;
 
 export const CancelButton = styled.button`

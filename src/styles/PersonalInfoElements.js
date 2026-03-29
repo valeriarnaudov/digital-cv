@@ -55,6 +55,14 @@ export const DisplayRow = styled.div`
         margin-left: 0;
         margin-bottom: 6px;
     }
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+        align-items: center;
+        margin-left: 0;
+        text-align: center;
+        gap: 4px;
+    }
 `;
 
 export const PersonalDataContainer = styled.div`
@@ -95,6 +103,11 @@ export const DataValue = styled.div`
         margin-left: 0;
         font-size: 13px;
         color: #0f172a !important;
+    }
+
+    @media (max-width: 768px) {
+        margin-left: 0;
+        text-align: center;
     }
 `;
 
