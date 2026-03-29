@@ -119,3 +119,23 @@ export const EditPersonalData = styled.button`
         display: none !important;
     }
 `;
+
+export const QrContainer = styled.div`
+    display: none;
+
+    @media print {
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 5px;
+        margin-bottom: 25px;
+        
+        strong {
+            font-size: 12px;
+            color: #0f172a;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+    }
+`;

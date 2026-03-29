@@ -9,7 +9,11 @@ export const FirstLine = styled.div`
 
     @media print {
         width: 100%;
-        margin-bottom: 2px;
+        margin-bottom: 4px;
+        justify-content: flex-start;
+        align-items: baseline;
+        flex-wrap: wrap;
+        gap: 12px;
     }
 `;
 
@@ -47,7 +51,10 @@ export const FlexContainer = styled.div`
 
     @media print {
         width: 100%;
-        margin-bottom: 4px;
+        margin-bottom: 6px;
+        align-items: baseline;
+        flex-wrap: wrap;
+        gap: 8px;
     }
 `
 

@@ -15,9 +15,13 @@ export const MainContainer = styled.div`
 
     @media print {
         margin: 0;
+        padding: 40px;
         width: 100%;
+        height: auto !important;
+        min-height: auto !important;
         gap: 20px;
         grid-template-columns: 1fr 2.2fr;
+        box-sizing: border-box;
     }
 `;
 

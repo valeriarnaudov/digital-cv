@@ -10,6 +10,7 @@ import OtherSkills from "../components/Sections/OtherSkillsSection";
 import WorkExp from "../components/Sections/WorkExpSection";
 import Languages from "../components/Sections/LanguagesSection";
 import Projects from "../components/Sections/ProjectsSection";
+import CvParser from "../components/Uploads/CvParser";
 import { UserAuth } from "../context/AuthContext";
 import { getData, getUidByUsername } from "../services/dataServices";
 import { DataContainer, MainContainer } from "../styles/AccountElements";
@@ -108,9 +109,10 @@ function Account() {
     return (
         <>
             <MainContainer>
-                <PersonalInfo data={data} isOwner={isOwner} />
+                <PersonalInfo data={data} isOwner={isOwner} username={username || targetUid} />
 
                 <DataContainer>
+                    <CvParser data={data} isOwner={isOwner} />
                     <WorkExp data={data} setData={setData} isOwner={isOwner} isActive={activeSection === 'work'} onToggle={() => setActiveSection(activeSection === 'work' ? null : 'work')} />
                     <Education data={data} setData={setData} isOwner={isOwner} isActive={activeSection === 'education'} onToggle={() => setActiveSection(activeSection === 'education' ? null : 'education')} />
                     <Projects data={data} setData={setData} isOwner={isOwner} isActive={activeSection === 'projects'} onToggle={() => setActiveSection(activeSection === 'projects' ? null : 'projects')} />
@@ -119,13 +121,6 @@ function Account() {
                     <Courses data={data} setData={setData} isOwner={isOwner} isActive={activeSection === 'courses'} onToggle={() => setActiveSection(activeSection === 'courses' ? null : 'courses')} />
                 </DataContainer>
                 {data && <ActionBar username={username} />}
-                
-                <div className="print-footer" style={{ display: 'none' }}>
-                    <div style={{ fontSize: '14px', color: '#64748b', marginTop: '30px' }}>
-                        <strong>Digital CV:</strong> https://digital-cv.com/{username || targetUid}
-                    </div>
-                    <QRCodeSVG value={`https://digital-cv.com/${username || targetUid}`} size={64} />
-                </div>
             </MainContainer>
         </>
     );
