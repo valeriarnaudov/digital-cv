@@ -13,8 +13,7 @@ import { getCourses } from "../../services/dataServices";
 import CoursesForm from "../Forms/CoursesForm";
 import CoursesSingleInfo from "../SingleElements/CoursesSingleInfo";
 
-function Courses({ data, isOwner }) {
-    const [toogle, setToogle] = useState(false);
+function Courses({ data, isOwner, isActive, onToggle }) {
     const [add, setAdd] = useState(false);
     const [courses, setCourses] = useState([]);
 
@@ -38,8 +37,8 @@ function Courses({ data, isOwner }) {
                             <BiMessageSquareAdd />
                         </AddBtn>
                     )}
-                    <ToogleBtn onClick={() => setToogle((toogle) => !toogle)}>
-                        {!toogle ? (
+                    <ToogleBtn onClick={onToggle}>
+                        {!isActive ? (
                             <FaRegArrowAltCircleDown />
                         ) : (
                             <FaRegArrowAltCircleUp />
@@ -47,13 +46,11 @@ function Courses({ data, isOwner }) {
                     </ToogleBtn>
                 </Buttons>
             </Info>
-            {toogle && (
-                <InformationContainer>
-                    {courses?.map((doc) => (
-                        <CoursesSingleInfo doc={doc} />
-                    ))}
-                </InformationContainer>
-            )}
+            <InformationContainer className={isActive ? '' : 'hide'}>
+                {courses?.map((doc) => (
+                    <CoursesSingleInfo key={doc.id} doc={doc} />
+                ))}
+            </InformationContainer>
         </>
     );
 }

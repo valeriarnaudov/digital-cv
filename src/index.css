@@ -22,16 +22,37 @@ code {
 }
 
 @media print {
-    nav, footer, .print-hidden {
+    @page { 
+        margin: 0; 
+        size: A4;
+    }
+    nav, footer, .print-hidden, button {
         display: none !important;
     }
     body, html {
         background-color: white !important;
-        color: black !important;
+        background-image: none !important;
+        color: #111 !important;
         margin: 0;
-        padding: 0;
+        padding: 50px;
+        min-height: auto !important;
+        box-sizing: border-box;
     }
     * {
         box-shadow: none !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+    
+    .print-footer {
+        display: flex !important;
+        justify-content: space-between;
+        align-items: flex-end;
+        position: relative;
+        bottom: 0;
+        width: 100%;
+        margin-top: 40px;
+        border-top: 1px solid #cbd5e1;
+        padding-top: 20px;
     }
 }

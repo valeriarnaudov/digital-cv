@@ -10,6 +10,8 @@ import {
     InputContainer,
     TextArea,
     Title,
+    ButtonContainer,
+    CancelButton
 } from "../../styles/FormsElements";
 
 function OtherSkillsForm({ data, setAdd }) {
@@ -55,7 +57,10 @@ function OtherSkillsForm({ data, setAdd }) {
                         onChange={inputHandler}
                         required={true}
                     />{" "}
-                    <FormButton type="submit">Submit</FormButton>
+                    <ButtonContainer>
+                        <CancelButton type="button" onClick={() => setAdd(false)}>Cancel</CancelButton>
+                        <FormButton type="submit">Submit</FormButton>
+                    </ButtonContainer>
                 </Form>
             </FormContainer>
         </>

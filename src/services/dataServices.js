@@ -126,3 +126,51 @@ export const getOtherSkills = async (userId, setOtherSkills) => {
         console.log(error);
     }
 };
+
+export const setLanguages = async (userId, input) => {
+    try {
+        await setDoc(doc(collection(db, "accounts", userId, "languages")), input);
+        toast.success("Data uploaded successfully");
+    } catch (error) {
+        console.log(error);
+        toast.error("Error on uploading data");
+    }
+};
+
+export const getLanguages = async (userId, setLanguages) => {
+    try {
+        const list = [];
+        const result = await getDocs(
+            collection(db, "accounts", userId, "languages")
+        );
+        result.docs.forEach((doc) => list.push({ ...doc.data(), id: doc.id }));
+        setLanguages(list);
+        return list;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export const setProjects = async (userId, input) => {
+    try {
+        await setDoc(doc(collection(db, "accounts", userId, "projects")), input);
+        toast.success("Data uploaded successfully");
+    } catch (error) {
+        console.log(error);
+        toast.error("Error on uploading data");
+    }
+};
+
+export const getProjects = async (userId, setProjects) => {
+    try {
+        const list = [];
+        const result = await getDocs(
+            collection(db, "accounts", userId, "projects")
+        );
+        result.docs.forEach((doc) => list.push({ ...doc.data(), id: doc.id }));
+        setProjects(list);
+        return list;
+    } catch (error) {
+        console.log(error);
+    }
+};

@@ -13,8 +13,7 @@ import { getOtherSkills } from "../../services/dataServices";
 import OtherSkillsForm from "../Forms/OtherSkillsForm";
 import OtherSkillsSingleInfo from "../SingleElements/OtherSkillsSingleInfo";
 
-function OtherSkills({ data, isOwner }) {
-    const [toogle, setToogle] = useState(false);
+function OtherSkills({ data, isOwner, isActive, onToggle }) {
     const [add, setAdd] = useState(false);
     const [otherSkills, setOtherSkills] = useState([]);
 
@@ -38,8 +37,8 @@ function OtherSkills({ data, isOwner }) {
                             <BiMessageSquareAdd />
                         </AddBtn>
                     )}
-                    <ToogleBtn onClick={() => setToogle((toogle) => !toogle)}>
-                        {!toogle ? (
+                    <ToogleBtn onClick={onToggle}>
+                        {!isActive ? (
                             <FaRegArrowAltCircleDown />
                         ) : (
                             <FaRegArrowAltCircleUp />
@@ -47,13 +46,11 @@ function OtherSkills({ data, isOwner }) {
                     </ToogleBtn>
                 </Buttons>
             </Info>
-            {toogle && (
-                <InformationContainer>
-                    {otherSkills?.map((doc) => (
-                        <OtherSkillsSingleInfo doc={doc} />
-                    ))}
-                </InformationContainer>
-            )}
+            <InformationContainer className={isActive ? '' : 'hide'}>
+                {otherSkills?.map((doc) => (
+                    <OtherSkillsSingleInfo key={doc.id} doc={doc} />
+                ))}
+            </InformationContainer>
         </>
     );
 }

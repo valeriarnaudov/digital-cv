@@ -8,16 +8,20 @@ import Courses from "../components/Sections/CoursesSection";
 import Education from "../components/Sections/EducationSection";
 import OtherSkills from "../components/Sections/OtherSkillsSection";
 import WorkExp from "../components/Sections/WorkExpSection";
+import Languages from "../components/Sections/LanguagesSection";
+import Projects from "../components/Sections/ProjectsSection";
 import { UserAuth } from "../context/AuthContext";
 import { getData, getUidByUsername } from "../services/dataServices";
 import { DataContainer, MainContainer } from "../styles/AccountElements";
 import ActionBar from "../components/MainComponents/ActionBar";
+import { QRCodeSVG } from 'qrcode.react';
 
 function Account() {
     const [isOwner, setIsOwner] = useState(false);
     const [data, setData] = useState(null);
     const [isNewUser, setIsNewUser] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [activeSection, setActiveSection] = useState('work');
 
     const { username } = useParams();
     const { user } = UserAuth();
@@ -107,12 +111,21 @@ function Account() {
                 <PersonalInfo data={data} isOwner={isOwner} />
 
                 <DataContainer>
-                    <WorkExp data={data} setData={setData} isOwner={isOwner} />
-                    <Education data={data} setData={setData} isOwner={isOwner} />
-                    <OtherSkills data={data} setData={setData} isOwner={isOwner} />
-                    <Courses data={data} setData={setData} isOwner={isOwner} />
+                    <WorkExp data={data} setData={setData} isOwner={isOwner} isActive={activeSection === 'work'} onToggle={() => setActiveSection(activeSection === 'work' ? null : 'work')} />
+                    <Education data={data} setData={setData} isOwner={isOwner} isActive={activeSection === 'education'} onToggle={() => setActiveSection(activeSection === 'education' ? null : 'education')} />
+                    <Projects data={data} setData={setData} isOwner={isOwner} isActive={activeSection === 'projects'} onToggle={() => setActiveSection(activeSection === 'projects' ? null : 'projects')} />
+                    <OtherSkills data={data} setData={setData} isOwner={isOwner} isActive={activeSection === 'skills'} onToggle={() => setActiveSection(activeSection === 'skills' ? null : 'skills')} />
+                    <Languages data={data} setData={setData} isOwner={isOwner} isActive={activeSection === 'languages'} onToggle={() => setActiveSection(activeSection === 'languages' ? null : 'languages')} />
+                    <Courses data={data} setData={setData} isOwner={isOwner} isActive={activeSection === 'courses'} onToggle={() => setActiveSection(activeSection === 'courses' ? null : 'courses')} />
                 </DataContainer>
                 {data && <ActionBar username={username} />}
+                
+                <div className="print-footer" style={{ display: 'none' }}>
+                    <div style={{ fontSize: '14px', color: '#64748b', marginTop: '30px' }}>
+                        <strong>Digital CV:</strong> https://digital-cv.com/{username || targetUid}
+                    </div>
+                    <QRCodeSVG value={`https://digital-cv.com/${username || targetUid}`} size={64} />
+                </div>
             </MainContainer>
         </>
     );

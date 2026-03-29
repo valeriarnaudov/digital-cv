@@ -9,6 +9,9 @@ import {
     FormLabel,
     InputContainer,
     Title,
+    ButtonContainer,
+    CancelButton,
+    TextArea
 } from "../../styles/FormsElements";
 
 function CoursesForm({ data, setAdd }) {
@@ -35,16 +38,28 @@ function CoursesForm({ data, setAdd }) {
                     {CoursesFormObject.map((object) => (
                         <InputContainer key={object.id}>
                             <FormLabel>{object.name}</FormLabel>
-                            <FormInput
-                                name={object.id}
-                                type={object.type}
-                                placeholder={object.placeholder}
-                                onChange={inputHandler}
-                                required={object.required}
-                            />
+                            {object.type === "textarea" ? (
+                                <TextArea
+                                    name={object.id}
+                                    placeholder={object.placeholder}
+                                    onChange={inputHandler}
+                                    required={object.required}
+                                />
+                            ) : (
+                                <FormInput
+                                    name={object.id}
+                                    type={object.type}
+                                    placeholder={object.placeholder}
+                                    onChange={inputHandler}
+                                    required={object.required}
+                                />
+                            )}
                         </InputContainer>
                     ))}
-                    <FormButton type="submit">Submit</FormButton>
+                    <ButtonContainer>
+                        <CancelButton type="button" onClick={() => setAdd(false)}>Cancel</CancelButton>
+                        <FormButton type="submit">Submit</FormButton>
+                    </ButtonContainer>
                 </Form>
             </FormContainer>
         </>

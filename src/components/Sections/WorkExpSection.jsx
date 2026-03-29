@@ -13,8 +13,7 @@ import WorkExpForm from "../Forms/WorkExpForm";
 import { getWorkExp } from "../../services/dataServices";
 import WorkExpSingleInfo from "../SingleElements/WorkExpSingleInfo";
 
-function WorkExp({ data, isOwner, setData }) {
-    const [toogle, setToogle] = useState(true);
+function WorkExp({ data, isOwner, setData, isActive, onToggle }) {
     const [add, setAdd] = useState(false);
     const [workExp, setWorkExp] = useState([]);
 
@@ -40,8 +39,8 @@ function WorkExp({ data, isOwner, setData }) {
                             <BiMessageSquareAdd />
                         </AddBtn>
                     )}
-                    <ToogleBtn onClick={() => setToogle((toogle) => !toogle)}>
-                        {!toogle ? (
+                    <ToogleBtn onClick={onToggle}>
+                        {!isActive ? (
                             <FaRegArrowAltCircleDown />
                         ) : (
                             <FaRegArrowAltCircleUp />
@@ -49,13 +48,11 @@ function WorkExp({ data, isOwner, setData }) {
                     </ToogleBtn>
                 </Buttons>
             </Info>
-            {toogle && (
-                <InformationContainer>
-                    {workExp?.map((doc) => (
-                        <WorkExpSingleInfo doc={doc} />
-                    ))}
-                </InformationContainer>
-            )}
+            <InformationContainer className={isActive ? '' : 'hide'}>
+                {workExp?.map((doc) => (
+                    <WorkExpSingleInfo key={doc.id} doc={doc} />
+                ))}
+            </InformationContainer>
         </>
     );
 }

@@ -9,17 +9,17 @@ import {
 } from "../../styles/DataInfoElements";
 import { FaRegArrowAltCircleDown, FaRegArrowAltCircleUp } from "react-icons/fa";
 import { BiMessageSquareAdd } from "react-icons/bi";
-import { getEducation } from "../../services/dataServices";
-import EducationForm from "../Forms/EducationForm";
-import EducationSingleInfo from "../SingleElements/EducationSingleInfo";
+import { getProjects } from "../../services/dataServices";
+import ProjectsForm from "../Forms/ProjectsForm";
+import ProjectsSingleInfo from "../SingleElements/ProjectsSingleInfo";
 
-function Education({ data, isOwner, isActive, onToggle }) {
+function Projects({ data, isOwner, isActive, onToggle }) {
     const [add, setAdd] = useState(false);
-    const [education, setEducation] = useState([]);
+    const [projects, setProjects] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
-            await getEducation(data.user, setEducation);
+            await getProjects(data.user, setProjects);
         };
         fetchData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -27,9 +27,9 @@ function Education({ data, isOwner, isActive, onToggle }) {
 
     return (
         <>
-            {add && <EducationForm data={data} setAdd={setAdd} />}
+            {add && <ProjectsForm data={data} setAdd={setAdd} />}
             <Info>
-                <Title>Education</Title>
+                <Title>Projects</Title>
 
                 <Buttons>
                     {isOwner && (
@@ -47,12 +47,12 @@ function Education({ data, isOwner, isActive, onToggle }) {
                 </Buttons>
             </Info>
             <InformationContainer className={isActive ? '' : 'hide'}>
-                {education?.map((doc) => (
-                    <EducationSingleInfo key={doc.id} doc={doc} />
+                {projects?.map((doc) => (
+                    <ProjectsSingleInfo key={doc.id} doc={doc} />
                 ))}
             </InformationContainer>
         </>
     );
 }
 
-export default Education;
+export default Projects;
